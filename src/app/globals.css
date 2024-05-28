@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  /* 색상테마 */
+  --primary-color: rgb(153, 169, 143);
+  --secondary1-color: rgb(193, 208, 181);
+  --secondary2-color: rgb(214, 232, 219);
+  --accent1-color: rgb(255, 248, 222);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +30,36 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* 
+CSS 작성 규칙
+1. 페이지별로 작성
+2. 자주 쓰이는건 변수로
+
+*/
+
+/* 공통 */
+.page {
+  min-height: 100vh;
+  width: 100vw;
+  padding: 3em;
+  display: flex;
+  flex-direction: column;
+}
+
+/* MainPage Style */
+
+/* MyPage Style */
+
+/* Login Style */
+.login-modal input {
+  min-width: 200px;
+  background-color: transparent;
+  /* border-bottom: 2px solid black; */
+  outline: none;
+}
+
+.login-modal svg {
+  color: gray;
 }
