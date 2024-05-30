@@ -7,10 +7,67 @@ export default function Home() {
   const [isHaveRoadmap, setIsHaveRoadmap] = useState(false);
 
   return (
-    <section className=" bg-white flex justify-center items-center flex-col ">
-      <div className="page bg-primary flex justify-center items-center">
-        <h1 className="text-7xl font-bold text-accent1">나만을 위한 취업 로드맵, 하우</h1>
-        <p className="text-accent1 text-xl">서비스 소개가 들어갈 듯</p>
+    <section className="">
+      <section class="section top-section">
+        <div class="content-container content-theme-dark">
+          <div class="content-inner">
+            <div class="content-center">
+              <h1>나만을 위한 취업 로드맵</h1>
+              <p>
+                Hope Opportunity Work{" "}
+                <a href="http://primitive.kr/" target="_blank">
+                  by Primitive
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bottom-section">
+        <div class="content-container content-theme-light">
+          <div class="content-inner">
+            <div class="content-center">
+              <h1>HOW</h1>
+
+              <p>
+                Hope Opportunity Work{" "}
+                <a href="http://primitive.kr/" target="_blank">
+                  by Primitive
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="page bg-gradient-to-br to-emerald-300 from-lime-200 flex justify-center items-center">
+        <div class="perspective-text">
+          <div class="perspective-line">
+            <p></p>
+            <p>Hope</p>
+          </div>
+          <div class="perspective-line">
+            <p>Hope</p>
+            <p>Opportunity</p>
+          </div>
+          <div class="perspective-line">
+            <p>Opportunity</p>
+            <p>Work</p>
+          </div>
+          <div class="perspective-line">
+            <p>Work</p>
+            <p>Leads To</p>
+          </div>
+          <div class="perspective-line">
+            <p>Leads To</p>
+            <p>Success</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="page bg-gradient-to-br to-emerald-300 from-lime-200 flex justify-center items-center">
+        <h1 className="text-7xl font-bold text-emerald-700">나만을 위한 취업 로드맵, 하우</h1>
+        <p className="text-2xl text-emerald-700">서비스 소개가 들어갈 듯</p>
       </div>
       <div className="page">
         <h1 className="text-2xl ">HOW 메인페이지</h1>
