@@ -11,7 +11,7 @@ export default function Home() {
       <section class="section top-section">
         <div class="content-container content-theme-dark">
           <div class="content-inner">
-            <div class="content-center">
+            <div class="content-center select-none">
               <h1>나만을 위한 취업 로드맵</h1>
               <p>
                 Hope Opportunity Work{" "}
@@ -24,11 +24,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section class="section bottom-section">
+      {/* <section class="section bottom-section">
         <div class="content-container content-theme-light">
           <div class="content-inner">
             <div class="content-center">
-              <h1>HOW</h1>
+              <h1>하우</h1>
 
               <p>
                 Hope Opportunity Work{" "}
@@ -39,45 +39,35 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-      <div className="page bg-gradient-to-br to-emerald-300 from-lime-200 flex justify-center items-center">
-        <div class="perspective-text">
-          <div class="perspective-line">
-            <p></p>
-            <p>Hope</p>
-          </div>
-          <div class="perspective-line">
-            <p>Hope</p>
-            <p>Opportunity</p>
-          </div>
-          <div class="perspective-line">
-            <p>Opportunity</p>
-            <p>Work</p>
-          </div>
-          <div class="perspective-line">
-            <p>Work</p>
-            <p>Leads To</p>
-          </div>
-          <div class="perspective-line">
-            <p>Leads To</p>
-            <p>Success</p>
-          </div>
-        </div>
-      </div>
+      </section> */}
 
-      <div className="page bg-gradient-to-br to-emerald-300 from-lime-200 flex justify-center items-center">
+      {/* <div className="page bg-gradient-to-br to-emerald-300 from-lime-200 flex justify-center items-center">
         <h1 className="text-7xl font-bold text-emerald-700">나만을 위한 취업 로드맵, 하우</h1>
         <p className="text-2xl text-emerald-700">서비스 소개가 들어갈 듯</p>
+      </div> */}
+      <div className="page">
+        <h1 className="text-7xl">서비스 소개</h1>
+        <div className="text-xl">
+          <p>하우는 장애인을 위한 나만의 취업 로드맵을 제공하는 서비스입니다.</p>
+          <p></p>
+        </div>
+      </div>
+      <div className="page">
+        <h1 className="text-7xl">로드맵 미리보기</h1>
+        <div className="text-xl">
+          <p>하우는 장애인을 위한 나만의 취업 로드맵을 제공하는 서비스입니다.</p>
+          <p></p>
+        </div>
       </div>
       <div className="page">
         <h1 className="text-2xl ">HOW 메인페이지</h1>
         <p>구성요소</p>
-        <p>
-          - 서비스 소개 - 초기 정보를 갖고 초기 로드맵 보여주기, 로드맵 생성 방법 안내 ( 비로그인
-          상태 ){" "}
-        </p>
+        <p></p>
+        <p>서비스 소개</p>
+        <p> - 초기 정보를 갖고 초기 로드맵 보여주기, 로드맵 생성 방법 안내 ( 비로그인 상태 )</p>
         <p> - 생성된 로드맵 및 진행 상황 안내 ( 로그인 상태 && 로드맵 생성 후 ) </p>{" "}
         <p> - 최신 공지사항 및 뉴스</p>
+        <p> - 스크린 리더를 고려하는 개발이 필요함</p>
       </div>
       <div className="page bg-secondary1">
         <h1 className="text-4xl ">나의 로드맵</h1>

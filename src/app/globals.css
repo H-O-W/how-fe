@@ -22,6 +22,15 @@
   }
 }
 
+/* Font */
+@font-face {
+  font-family: "KCC-Hanbit";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: white;
 }
@@ -46,6 +55,7 @@ CSS 작성 규칙
   padding: 3em;
   display: flex;
   flex-direction: column;
+  font-family: "KCC-Hanbit";
 }
 
 /* MainPage Style */
@@ -127,16 +137,9 @@ p {
 /* 
  */
 
-@import url("https://fonts.googleapis.com/css?family=Raleway:700,900");
-
-* {
-  margin: 0;
-  padding: 0;
-  border: none;
-}
 body {
   font-size: 14px;
-  font-family: "Raleway", sans-serif;
+  font-family: "KCC-Hanbit", sans-serif;
 }
 a {
   text-decoration: none;
