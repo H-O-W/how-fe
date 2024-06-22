@@ -10,8 +10,10 @@ const NavBar = () => {
 
   return (
     <nav className="w-full fixed top-0 z-50 inline-flex justify-between items-center p-5 gap-3 text-lg">
-      <button className="text-2xl">
-        <HiBars4 />
+      <button className="text-xl">
+        {/* <HiBars4 />
+         */}
+        HOW
       </button>
       <ul className="inline-flex gap-3">
         <li onClick={() => navigate.push("/")}>소개</li>

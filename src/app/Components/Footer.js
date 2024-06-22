@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="w-full md:w-1/4 mb-6 md:mb-0">
             <h3 className="text-xl font-bold mb-2">HOW</h3>
             <p className="text-sm">
-              AI 기술을 활용하여 장애인들에게 맞춤형 취업 로드맵을 제공하는 혁신적인 서비스입니다.
+              AI 기술을 활용하여 장애인에게 맞춤형 취업 로드맵을 제공하는 혁신적인 서비스입니다.
             </p>
           </div>
 
