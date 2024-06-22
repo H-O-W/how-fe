@@ -3,9 +3,21 @@ import React, { useState } from "react";
 import Select from "react-select";
 
 const DetailDataForm = () => {
+  const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedDisability, setSelectedDisability] = useState(null);
 
+  const regionCategories = [
+    { value: "seoul", label: "서울" },
+    { value: "gyeonggi", label: "경기" },
+    { value: "chungnam", label: "충남" },
+    { value: "chungbuk", label: "충북" },
+    { value: "gyeongbuk", label: "경북" },
+    { value: "gyeongnam", label: "경남" },
+    { value: "jeonnam", label: "전남" },
+    { value: "jeonbuk", label: "전북" },
+    { value: "kangwon", label: "강원" },
+  ];
   const jobCategories = [
     { value: "office", label: "사무직" },
     { value: "it", label: "IT/개발" },
@@ -30,6 +42,9 @@ const DetailDataForm = () => {
     { value: "brain", label: "뇌병변장애" },
     { value: "multiple", label: "중복장애" },
   ];
+  const handleRegionChange = (selectedOption) => {
+    setSelectedRegion(selectedOption);
+  };
 
   const handleJobChange = (selectedOption) => {
     setSelectedJob(selectedOption);
@@ -65,7 +80,20 @@ const DetailDataForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
+    <form onSubmit={handleSubmit} className="max-w-xl mx-auto mt-8">
+      <div className="w-full mb-4">
+        <label htmlFor="region-select" className="block mb-2 font-bold text-gray-700">
+          원하는 지역
+        </label>
+        <Select
+          id="region-select"
+          options={regionCategories}
+          value={selectedRegion}
+          onChange={handleRegionChange}
+          placeholder="지역을 선택하세요"
+          styles={customStyles}
+        />
+      </div>
       <div className="mb-4">
         <label htmlFor="job-select" className="block mb-2 font-bold text-gray-700">
           원하는 직종
@@ -79,7 +107,6 @@ const DetailDataForm = () => {
           styles={customStyles}
         />
       </div>
-
       <div className="mb-4">
         <label htmlFor="disability-select" className="block mb-2 font-bold text-gray-700">
           장애분류
