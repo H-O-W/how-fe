@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Footer from "./Components/Footer";
 
 export default function Home() {
   const [isHaveRoadmap, setIsHaveRoadmap] = useState(false);
@@ -89,18 +90,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="page">
-        <h3 className="text-2xl">페이지 이동하기</h3>
-        <Link href={"/login"} className="px-4 py-2 bg-black text-white rounded-sm mr-3">
-          로그인화면
-        </Link>
-        <Link href={"/mypage"} className="px-4 py-2 bg-black text-white rounded-sm mr-3">
-          마이페이지
-        </Link>
-        <Link href={"/roadmap"} className="px-4 py-2 bg-black text-white rounded-sm mr-3">
-          로드맵 생성 페이지
-        </Link>
-      </div>
+      <Footer />
     </section>
   );
 }
