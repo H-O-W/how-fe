@@ -13,14 +13,14 @@
 
 ## 기술 스택
 
-- Frontend:
-  - React
-  - Next.js
-  - TypeScript
-  - Recoil (상태 관리)
-- Backend: 
+### Frontend:
+  
+[![My Skills](https://skillicons.dev/icons?i=js,react,nextjs,tailwind,vite,vercel)](https://skillicons.dev)
+
+### Backend:
   - (백엔드 기술 스택 정보 추가 필요)
-- AI: 
+    
+### AI: 
   - (사용된 AI 기술/모델 정보 추가 필요)
 
 ## 설치 및 실행 방법
