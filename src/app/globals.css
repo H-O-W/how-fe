@@ -62,11 +62,15 @@ CSS 작성 규칙
 
 /* MyPage Style */
 
-/* Login Style */
-.login-modal input {
+/* Login Page Style */
+.LoginPage {
+  background-image: url("../Images/pawel-czerwinski-NlmCN3WBy-I-unsplash.jpg");
+  background-size: cover;
+}
+.LoginPage input {
   min-width: 200px;
   background-color: transparent;
-  /* border-bottom: 2px solid black; */
+  border-bottom: 2px solid lightgray;
   outline: none;
 }
 
