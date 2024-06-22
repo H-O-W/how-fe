@@ -1,12 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Select from "react-select";
 
 const DetailDataForm = () => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedDisability, setSelectedDisability] = useState(null);
-
+  const [licenses, setLicenses] = useState([]);
+  const [licenseInput, setLicenseInput] = useState("");
   const regionCategories = [
     { value: "seoul", label: "서울" },
     { value: "gyeonggi", label: "경기" },
@@ -54,6 +55,18 @@ const DetailDataForm = () => {
     setSelectedDisability(selectedOption);
   };
 
+  const licenseAddBtnRef = useRef(null);
+  const handleLicenseChange = (e) => {
+    try {
+      if (licenseInput.length === 0) return;
+      if (e.code === "Enter" || e.code === "Comma") {
+        if (licenseAddBtnRef.current) licenseAddBtnRef.current.click();
+      }
+    } catch (error) {
+      console.error("라이센스 입력 중 오류", error);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("선택된 직종:", selectedJob?.value);
@@ -80,7 +93,7 @@ const DetailDataForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto mt-8">
+    <form onSubmit={handleSubmit} className="user-detail-form max-w-xl mx-auto mt-8">
       <div className="w-full mb-4">
         <label htmlFor="region-select" className="block mb-2 font-bold text-gray-700">
           원하는 지역
@@ -121,24 +134,55 @@ const DetailDataForm = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="skill" className="block mb-2 font-bold text-gray-700">
+        <label htmlFor="license" className="block mb-2 font-bold text-gray-700">
           자격증
         </label>
-        <input
-          id={"skill"}
-          type="text"
-          placeholder="자격증이 있나요?"
-          className="w-full border px-2 py-2"
-        />
+        <div className="flex gap-0.5 mb-1">
+          {licenses &&
+            licenses.map((license, index) => (
+              <span
+                className="bg-emerald-100 hover:bg-emerald-200 px-1 py-0.5 rounded-md cursor-pointer animation-earthquakes"
+                onClick={() => {
+                  setLicenses((prev) => prev.filter((v, i) => v !== license));
+                }}
+                key={index}
+              >
+                {license}
+              </span>
+            ))}
+        </div>
+        <div className="flex text-nowrap">
+          <input
+            id={"license"}
+            type="text"
+            value={licenseInput}
+            onChange={(e) => setLicenseInput(e.target.value)}
+            placeholder="자격증이 있나요?"
+            className="w-full border px-2 py-2"
+          />
+          <button
+            className="bg-blue-500 text-white px-2 -ml-1"
+            htmlFor="license"
+            onClick={() => {
+              if (licenseInput.trim().length === 0) return;
+              if (licenses.includes(licenseInput.trim())) return;
+              setLicenses((prev) => [...prev, licenseInput.trim()]);
+              setLicenseInput("");
+            }}
+            ref={licenseAddBtnRef}
+          >
+            추가
+          </button>
+        </div>
       </div>
       <div className="mb-4">
-        <label htmlFor="skill" className="block mb-2 font-bold text-gray-700">
+        <label htmlFor="education" className="block mb-2 font-bold text-gray-700">
           학력
         </label>
         <input
-          id={"skill"}
+          id={"education"}
           type="text"
-          placeholder="학력를 입력하세요."
+          placeholder="최종 학력를 입력하세요."
           className="w-full border px-2 py-2"
         />
       </div>
