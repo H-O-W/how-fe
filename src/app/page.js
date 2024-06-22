@@ -25,27 +25,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* <section class="section bottom-section">
-        <div class="content-container content-theme-light">
-          <div class="content-inner">
-            <div class="content-center">
-              <h1>하우</h1>
-
-              <p>
-                Hope Opportunity Work{" "}
-                <a href="http://primitive.kr/" target="_blank">
-                  by Primitive
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* <div className="page bg-gradient-to-br to-emerald-300 from-lime-200 flex justify-center items-center">
-        <h1 className="text-7xl font-bold text-emerald-700">나만을 위한 취업 로드맵, 하우</h1>
-        <p className="text-2xl text-emerald-700">서비스 소개가 들어갈 듯</p>
-      </div> */}
       <div className="page">
         <h1 className="text-7xl">서비스 소개</h1>
         <div className="text-xl">
