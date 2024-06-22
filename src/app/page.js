@@ -8,11 +8,11 @@ export default function Home() {
   const [isHaveRoadmap, setIsHaveRoadmap] = useState(false);
 
   return (
-    <section className="">
-      <section class="section top-section">
-        <div class="content-container content-theme-dark">
-          <div class="content-inner">
-            <div class="content-center select-none">
+    <section className="h-screen ">
+      <div className="section top-section page-snap">
+        <div className="content-container content-theme-dark">
+          <div className="content-inner">
+            <div className="content-center select-none">
               <h1>나만을 위한 취업 로드맵</h1>
               <p>
                 Hope Opportunity Work{" "}
@@ -23,23 +23,24 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      <div className="page">
+      </div>
+      <div className="page page-snap">
         <h1 className="text-7xl">서비스 소개</h1>
         <div className="text-xl">
           <p>하우는 장애인을 위한 나만의 취업 로드맵을 제공하는 서비스입니다.</p>
           <p></p>
         </div>
       </div>
-      <div className="page">
-        <h1 className="text-7xl">로드맵 미리보기</h1>
-        <div className="text-xl">
-          <p>하우는 장애인을 위한 나만의 취업 로드맵을 제공하는 서비스입니다.</p>
-          <p></p>
+      <div className="page page-snap">
+        <h1 className="text-7xl">내 로드맵 보기</h1>
+        <div className="text-xl flex flex-col justify-start">
+          <p>아직 로드맵이 만들어지지 않은 상태에요</p>
+          <Link href={"/roadmap"} className="p-2 mt-4 bg-blue-300 rounded-md">
+            로드맵 만들기
+          </Link>
         </div>
       </div>
-      <div className="page">
+      <div className="page page-snap">
         <h1 className="text-2xl ">HOW 메인페이지</h1>
         <p>구성요소</p>
         <p></p>
@@ -49,7 +50,7 @@ export default function Home() {
         <p> - 최신 공지사항 및 뉴스</p>
         <p> - 스크린 리더를 고려하는 개발이 필요함</p>
       </div>
-      <div className="page bg-secondary1">
+      <div className="page page-snap bg-secondary1">
         <h1 className="text-4xl ">나의 로드맵</h1>
         <div className="h-96 w-full bg-accent1 overflow-x-scroll inline-flex gap-5">
           <div className="flex justify-center items-center text-4xl  bg-white px-5 py-4 shadow-lg aspect-video m-3 rounded-xl">
