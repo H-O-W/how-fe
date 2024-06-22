@@ -10,7 +10,7 @@ const NavBar = () => {
         <HiBars4 />
       </button>
       <ul className="inline-flex gap-3">
-        <li onClick={() => navigate.push("/")}>HOME</li>
+        <li onClick={() => navigate.push("/")}>소개</li>
         <li onClick={() => navigate.push("/roadmap")}>로드맵</li>
         <li onClick={() => navigate.push("/login")}>로그인</li>
       </ul>
