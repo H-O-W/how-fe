@@ -106,9 +106,24 @@ nav ul li:hover {
 
 /* Login Page Style */
 .LoginPage {
-  background-image: url("../Images/pawel-czerwinski-NlmCN3WBy-I-unsplash.jpg");
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../Images/bg-S.jpg");
+
+  @media (min-width: 768px) {
+    background-image: url("../Images/bg-M.jpg");
+  }
+
+  @media (min-width: 1024px) {
+    background-image: url("../Images/bg-L.jpg");
+  }
+
+  @media (min-width: 1440px) {
+    background-image: url("../Images/bg-XL.jpg");
+  }
 }
+
 .LoginPage input {
   min-width: 200px;
   background-color: transparent;
