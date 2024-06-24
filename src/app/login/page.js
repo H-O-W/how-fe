@@ -45,10 +45,12 @@ const LoginPage = () => {
 
   const getBackgroundImageUrl = () => {
     // 화면 크기에 따라 다른 이미지 URL 반환
-    if (window.innerWidth >= 1440) return "../bg/bg-XL.jpg";
-    if (window.innerWidth >= 1024) return "../bg/bg-L.jpg";
-    if (window.innerWidth >= 768) return "../bg/bg-M.jpg";
-    return "../bg/bg-S.jpg";
+    if (typeof window !== "undefined") {
+      if (window.innerWidth >= 1440) return "../bg/bg-XL.jpg";
+      if (window.innerWidth >= 1024) return "../bg/bg-L.jpg";
+      if (window.innerWidth >= 768) return "../bg/bg-M.jpg";
+      return "../bg/bg-S.jpg";
+    }
   };
 
   const handleSubmit = (e) => {
