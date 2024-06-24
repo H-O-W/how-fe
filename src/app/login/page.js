@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMiniUserCircle } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
 import { HiPhone } from "react-icons/hi2";
@@ -17,6 +17,39 @@ const LoginPage = () => {
 
   // UI 상태
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const loadImage = (imageUrl) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = imageUrl;
+        img.onload = () => resolve(img);
+        img.onerror = (err) => reject(err);
+      });
+    };
+
+    const loadBackgroundImage = async () => {
+      try {
+        const imageUrl = getBackgroundImageUrl();
+        await loadImage(imageUrl);
+        setIsLoaded(true);
+      } catch (error) {
+        console.error("배경 이미지 로딩 실패:", error);
+        setIsLoaded(true); // 에러 발생 시에도 로딩 화면 제거
+      }
+    };
+
+    loadBackgroundImage();
+  }, []);
+
+  const getBackgroundImageUrl = () => {
+    // 화면 크기에 따라 다른 이미지 URL 반환
+    if (window.innerWidth >= 1440) return "../bg/bg-XL.jpg";
+    if (window.innerWidth >= 1024) return "../bg/bg-L.jpg";
+    if (window.innerWidth >= 768) return "../bg/bg-M.jpg";
+    return "../bg/bg-S.jpg";
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +68,28 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="LoginPage flex items-center justify-center min-h-screen ">
+    <div
+      style={{ backgroundImage: `url(${getBackgroundImageUrl()})` }}
+      className={`relative LoginPage flex items-center justify-center min-h-screen ${
+        isLoaded && "loaded"
+      }`}
+    >
+      {!isLoaded && (
+        <div className="absolute w-screen h-screen">
+          <div className="spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+              className="w-24 h-24 text-emerald-950 origin-center  animate-spin"
+            >
+              <path d="M232,128a104,104,0,0,1-208,0c0-41,23.81-78.36,60.66-95.27a8,8,0,0,1,6.68,14.54C60.15,61.59,40,93.27,40,128a88,88,0,0,0,176,0c0-34.73-20.15-66.41-51.34-80.73a8,8,0,0,1,6.68-14.54C208.19,49.64,232,87,232,128Z"></path>
+            </svg>
+          </div>
+        </div>
+      )}
       <div className="relative w-full max-w-md p-8 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl shadow-xl">
         <div className="absolute inset-0 bg-gray-400 bg-opacity-0 backdrop-filter backdrop-blur-sm rounded-3xl" />
         <div className="relative z-10 ">
