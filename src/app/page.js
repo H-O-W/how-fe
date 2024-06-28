@@ -17,7 +17,7 @@ export default function Home() {
         <div className="text-xl">
           <p>하우는 장애인을 위한 나만의 취업 로드맵을 제공하는 서비스입니다.</p>
         </div>
-        <div className={"info-wrapper inline-flex items-center p-3 gap-2"}>
+        <div className={"info-wrapper inline-flex items-center p-3 gap-5"}>
           <div>
             <Image src={image} alt="서비스 소개1" width={400} height={300} />
             <h4>취업 로드맵</h4>
