@@ -115,9 +115,20 @@ nav ul li:hover {
 }
 
 /* 기본 (S 사이즈) */
-/* .LoginPage {
-  background-image: url("../Images/bg-S.jpg");
-} */
+.LoginPage {
+  background-image: image-set(
+    url("/bg/bg-XL.jpg") 1x,
+    url("/bg/bg-L.jpg") 2x,
+    url("/bg/bg-M.jpg") 3x,
+    url("/bg/bg-S.jpg") 4x
+  );
+  background-image: -webkit-image-set(
+    url("/bg/bg-XL.jpg") 1x,
+    url("/bg/bg-L.jpg") 2x,
+    url("/bg/bg-M.jpg") 3x,
+    url("/bg/bg-S.jpg") 4x
+  ); /* Chrome, Safari, Opera */
+}
 
 .LoginPage::before {
   content: "";
