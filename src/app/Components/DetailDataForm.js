@@ -200,7 +200,7 @@ const DetailDataForm = () => {
         {sumbitLoading ? (
           <LiaSpinnerSolid className="animate-spin h-7 mx-auto text-2xl" />
         ) : (
-          "로드맵 생성"
+          "다음 단계"
         )}
       </button>
     </form>

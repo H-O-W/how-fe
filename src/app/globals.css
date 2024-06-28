@@ -71,6 +71,10 @@ CSS 작성 규칙
   font-family: "Pretendard-Regular";
 }
 
+.pretendard {
+  font-family: "Pretendard-Regular";
+}
+
 /* Navbar Style */
 nav {
   font-family: "Pretendard-Regular", "KCC-Hanbit", sans-serif;
@@ -146,6 +150,11 @@ nav ul li:hover {
 }
 
 /* MyPage Style */
+
+/* RoadmapCreate Style */
+.successLine {
+  position: absolute;
+}
 
 /* UserInfoForm */
 .user-detail-form input {

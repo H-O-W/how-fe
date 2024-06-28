@@ -5,9 +5,11 @@ import { useState } from "react";
 import Footer from "./Components/Footer";
 import image from "../../public/bg/bg-M.jpg";
 import MainBanner from "./Components/MainBanner";
+import { useRecoilState } from "recoil";
+import roadmapState from "./Store/roadmapState";
 
 export default function Home() {
-  const [isHaveRoadmap, setIsHaveRoadmap] = useState(false);
+  const [isHaveRoadmap, setIsHaveRoadmap] = useRecoilState(roadmapState);
 
   return (
     <section className="h-screen ">
