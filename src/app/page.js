@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Footer from "./Components/Footer";
+import image from "../../public/bg/bg-M.jpg";
 
 export default function Home() {
   const [isHaveRoadmap, setIsHaveRoadmap] = useState(false);
@@ -28,7 +29,23 @@ export default function Home() {
         <h1 className="text-7xl">How to How</h1>
         <div className="text-xl">
           <p>하우는 장애인을 위한 나만의 취업 로드맵을 제공하는 서비스입니다.</p>
-          <p></p>
+        </div>
+        <div className={"info-wrapper inline-flex items-center p-3 gap-2"}>
+          <div>
+            <Image src={image} alt="서비스 소개1" width={400} height={300} />
+            <h4>취업 로드맵</h4>
+            <p>장애인 대상으로 AI 기반 취업 로드맵을 제공합니다.</p>
+          </div>
+          <div>
+            <Image src={image} alt="서비스 소개2" width={400} height={300} />
+            <h4>로드맵 진행상황 추적</h4>
+            <p>생성된 로드맵을 진행하면서 진행상황을 추적합니다.</p>
+          </div>
+          <div>
+            <Image src={image} alt="서비스 소개3" width={400} height={300} />
+            <h4>취업 관련 뉴스</h4>
+            <p>취업 관련 뉴스를 놓치지 않고 읽어볼 수 있습니다.</p>
+          </div>
         </div>
       </div>
       <div className="page page-snap">
