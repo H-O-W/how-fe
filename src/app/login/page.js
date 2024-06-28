@@ -8,6 +8,7 @@ import { HiPhone } from "react-icons/hi2";
 import { HiLockClosed } from "react-icons/hi";
 import { HiOutlineX } from "react-icons/hi";
 import { jsx, css } from "@emotion/react";
+import { LiaSpinnerSolid } from "react-icons/lia";
 
 const LoginPage = () => {
   // 상태관리
@@ -18,7 +19,7 @@ const LoginPage = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
 
   // UI 상태
-
+  const [loginLoading, setLoginLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -62,6 +63,7 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // 여기에 로그인 또는 회원가입 로직을 구현합니다.
+    setLoginLoading(true);
     console.log("Form submitted", { username, phone, email, password, passwordCheck });
   };
 
@@ -165,7 +167,13 @@ const LoginPage = () => {
               type="submit"
               className="w-full px-4 py-3 text-lg font-semibold text-white bg-gradient-to-r from-emerald-400 to-green-400 rounded-full hover:from-emerald-500 hover:to-green-500 focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
             >
-              {isLogin ? "로그인" : "회원가입"}
+              {loginLoading ? (
+                <LiaSpinnerSolid className="animate-spin h-7 mx-auto text-2xl" />
+              ) : isLogin ? (
+                "로그인"
+              ) : (
+                "회원가입"
+              )}
             </button>
           </form>
           <div className="mt-8 text-sm text-center text-white">

@@ -25,7 +25,7 @@ export default function Home() {
         </div>
       </div>
       <div className="page page-snap">
-        <h1 className="text-7xl">서비스 소개</h1>
+        <h1 className="text-7xl">How to How</h1>
         <div className="text-xl">
           <p>하우는 장애인을 위한 나만의 취업 로드맵을 제공하는 서비스입니다.</p>
           <p></p>
