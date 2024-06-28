@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiMiniUserCircle } from "react-icons/hi2";
@@ -6,7 +7,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { HiPhone } from "react-icons/hi2";
 import { HiLockClosed } from "react-icons/hi";
 import { HiOutlineX } from "react-icons/hi";
-import { css } from "@emotion/react";
+import { jsx, css } from "@emotion/react";
 
 const LoginPage = () => {
   // 상태관리
@@ -17,44 +18,46 @@ const LoginPage = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
 
   // UI 상태
-  const [backgroundImage, setBackgroundImage] = useState("");
+
   const [isLogin, setIsLogin] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const loadImage = (imageUrl) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = imageUrl;
-        img.onload = () => resolve(img);
-        img.onerror = (err) => reject(err);
-      });
-    };
-
-    const loadBackgroundImage = async () => {
-      try {
-        const imageUrl = getBackgroundImageUrl();
-        await loadImage(imageUrl);
-        setBackgroundImage(imageUrl);
-        setIsLoaded(true);
-      } catch (error) {
-        console.error("배경 이미지 로딩 실패:", error);
-        setIsLoaded(true); // 에러 발생 시에도 로딩 화면 제거
-      }
-    };
-
-    loadBackgroundImage();
-  }, []);
-
-  const getBackgroundImageUrl = () => {
-    // 화면 크기에 따라 다른 이미지 URL 반환
     if (typeof window !== "undefined") {
-      if (window.innerWidth >= 1440) return "/bg/bg-XL.jpg";
-      if (window.innerWidth >= 1024) return "/bg/bg-L.jpg";
-      if (window.innerWidth >= 768) return "/bg/bg-M.jpg";
-      return "/bg/bg-S.jpg";
+      const getImageUrl = (width) => {
+        if (width <= 640) return "/bg/bg-S.jpg";
+        if (width <= 1024) return "/bg/bg-M.jpg";
+        if (width <= 1440) return "/bg/bg-L.jpg";
+        return "/bg/bg-XL.jpg";
+      };
+
+      const loadImage = (src) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => setIsLoaded(true);
+        img.onerror = () => {
+          console.error("배경 이미지 로드 실패");
+          setIsLoaded(true);
+        };
+      };
+
+      const handleResize = () => {
+        const imageUrl = getImageUrl(window.innerWidth);
+        loadImage(imageUrl);
+      };
+
+      // 초기 로드
+      handleResize();
+
+      // 리사이즈 이벤트 리스너 추가
+      window.addEventListener("resize", handleResize);
+
+      // 클린업 함수
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
     }
-  };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,8 +80,9 @@ const LoginPage = () => {
       className={`relative LoginPage flex items-center justify-center min-h-screen ${
         isLoaded && "loaded"
       }`}
+      on={() => setIsLoaded(true)}
     >
-      {!isLoaded ? (
+      {!isLoaded && (
         <div className="absolute w-screen h-screen">
           <div className="spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
             <svg
@@ -92,22 +96,6 @@ const LoginPage = () => {
               <path d="M232,128a104,104,0,0,1-208,0c0-41,23.81-78.36,60.66-95.27a8,8,0,0,1,6.68,14.54C60.15,61.59,40,93.27,40,128a88,88,0,0,0,176,0c0-34.73-20.15-66.41-51.34-80.73a8,8,0,0,1,6.68-14.54C208.19,49.64,232,87,232,128Z"></path>
             </svg>
           </div>
-        </div>
-      ) : (
-        <div
-          css={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundImage: `url(${backgroundImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            zIndex: -1,
-          }}
-        >
-          {backgroundImage}
         </div>
       )}
       <div className="relative w-full max-w-md p-8 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl shadow-xl">
