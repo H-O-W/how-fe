@@ -7,6 +7,7 @@ const MainBanner = () => (
             <span className="">H</span>
             <span className=" mt-2">O</span>
             <span className=" mt-2">W</span>
+            <span className="text-sm opacity-75">Hope Opportunity Work</span>
           </h1>
           <p className="text-xl text-green-100 mb-6 animate-fade-in-up animation-delay-300">
             장애인을 위한 나만의 취업 로드맵
