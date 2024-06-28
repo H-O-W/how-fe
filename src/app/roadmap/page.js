@@ -1,12 +1,25 @@
 "use client";
-import DetailDataForm from "../Components/DetailDataForm";
+import DetailDataForm from "../Components/userdata-form/DetailDataForm";
 import { useRecoilState } from "recoil";
 import roadmapState from "../Store/roadmapState";
 import { useState } from "react";
+import Step1 from "../Components/userdata-form/Step1";
+import Step2 from "../Components/userdata-form/Step2";
+import Step3 from "../Components/userdata-form/Step3";
+import Step4 from "../Components/userdata-form/Step4";
 
 const RoadMapPage = () => {
   const [existRoadmap, setExistRoadmap] = useRecoilState(roadmapState);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
+
+  const handleSubmit = () => {
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <section className="bg-white h-screen flex flex-col justify-center items-center pretendard">
@@ -77,7 +90,10 @@ const RoadMapPage = () => {
             <div className="text-xl">{step}단계:</div>
             <div className="">로드맵을 생성하기 위해서는 아래 정보가 필요해요!</div>
           </div>
-          <DetailDataForm />
+          {step === 1 && <Step1 onNext={nextStep} />}
+          {step === 2 && <Step2 onNext={nextStep} onPrev={prevStep} />}
+          {step === 3 && <Step3 onNext={nextStep} onPrev={prevStep} />}
+          {step === 4 && <Step4 onPrev={prevStep} onSubmit={handleSubmit} />}
         </div>
       )}
     </section>
