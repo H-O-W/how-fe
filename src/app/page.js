@@ -4,27 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 import Footer from "./Components/Footer";
 import image from "../../public/bg/bg-M.jpg";
+import MainBanner from "./Components/MainBanner";
 
 export default function Home() {
   const [isHaveRoadmap, setIsHaveRoadmap] = useState(false);
 
   return (
     <section className="h-screen ">
-      <div className="section top-section page-snap">
-        <div className="content-container content-theme-dark">
-          <div className="content-inner">
-            <div className="content-center select-none">
-              <h1>나만을 위한 취업 로드맵</h1>
-              <p>
-                Hope Opportunity Work{" "}
-                <a href="http://primitive.kr/" target="_blank">
-                  by Primitive
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MainBanner />
       <div className="page page-snap">
         <h1 className="text-7xl">How to How</h1>
         <div className="text-xl">
