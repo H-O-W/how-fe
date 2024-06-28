@@ -6,6 +6,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { HiPhone } from "react-icons/hi2";
 import { HiLockClosed } from "react-icons/hi";
 import { HiOutlineX } from "react-icons/hi";
+import { css } from "@emotion/react";
 
 const LoginPage = () => {
   // 상태관리
@@ -16,6 +17,7 @@ const LoginPage = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
 
   // UI 상태
+  const [backgroundImage, setBackgroundImage] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -33,6 +35,7 @@ const LoginPage = () => {
       try {
         const imageUrl = getBackgroundImageUrl();
         await loadImage(imageUrl);
+        setBackgroundImage(imageUrl);
         setIsLoaded(true);
       } catch (error) {
         console.error("배경 이미지 로딩 실패:", error);
@@ -46,10 +49,10 @@ const LoginPage = () => {
   const getBackgroundImageUrl = () => {
     // 화면 크기에 따라 다른 이미지 URL 반환
     if (typeof window !== "undefined") {
-      if (window.innerWidth >= 1440) return "../bg/bg-XL.jpg";
-      if (window.innerWidth >= 1024) return "../bg/bg-L.jpg";
-      if (window.innerWidth >= 768) return "../bg/bg-M.jpg";
-      return "../bg/bg-S.jpg";
+      if (window.innerWidth >= 1440) return "/bg/bg-XL.jpg";
+      if (window.innerWidth >= 1024) return "/bg/bg-L.jpg";
+      if (window.innerWidth >= 768) return "/bg/bg-M.jpg";
+      return "/bg/bg-S.jpg";
     }
   };
 
@@ -71,12 +74,11 @@ const LoginPage = () => {
 
   return (
     <div
-      style={{ backgroundImage: `url(${getBackgroundImageUrl()})` }}
       className={`relative LoginPage flex items-center justify-center min-h-screen ${
         isLoaded && "loaded"
       }`}
     >
-      {!isLoaded && (
+      {!isLoaded ? (
         <div className="absolute w-screen h-screen">
           <div className="spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
             <svg
@@ -90,6 +92,22 @@ const LoginPage = () => {
               <path d="M232,128a104,104,0,0,1-208,0c0-41,23.81-78.36,60.66-95.27a8,8,0,0,1,6.68,14.54C60.15,61.59,40,93.27,40,128a88,88,0,0,0,176,0c0-34.73-20.15-66.41-51.34-80.73a8,8,0,0,1,6.68-14.54C208.19,49.64,232,87,232,128Z"></path>
             </svg>
           </div>
+        </div>
+      ) : (
+        <div
+          css={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            zIndex: -1,
+          }}
+        >
+          {backgroundImage}
         </div>
       )}
       <div className="relative w-full max-w-md p-8 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl shadow-xl">
