@@ -68,7 +68,7 @@ CSS 작성 규칙
   padding: 3em;
   display: flex;
   flex-direction: column;
-  font-family: "KCC-Hanbit";
+  font-family: "Pretendard-Regular";
 }
 
 /* Navbar Style */
@@ -78,14 +78,13 @@ nav {
 
 nav ul li {
   cursor: pointer;
-  border-radius: 8px;
-  transition: 300ms;
+  transition: 200ms ease-in-out;
   padding: 0.2em 0.5em;
+  border-color: transparent;
 }
 
 nav ul li:hover {
-  background-color: white;
-  color: black;
+  border-bottom: 1px solid black;
 }
 
 /* MainPage Style */
