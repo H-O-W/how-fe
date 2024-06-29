@@ -2,26 +2,49 @@
 import DetailDataForm from "../../Components/userdata-form/DetailDataForm";
 import { useRecoilState } from "recoil";
 import roadmapState from "../../Store/roadmapState";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Step1 from "../../Components/userdata-form/Step1";
 import Step2 from "../../Components/userdata-form/Step2";
 import Step3 from "../../Components/userdata-form/Step3";
 import Step4 from "../../Components/userdata-form/Step4";
-import { currentStepState } from "../../Store/roadmapFormState";
+import {
+  currentStepState,
+  step1State,
+  step2State,
+  step3State,
+  step4State,
+} from "../../Store/roadmapFormState";
 import { FaSpinner } from "react-icons/fa";
 
 const RoadMapPage = () => {
   const [existRoadmap, setExistRoadmap] = useRecoilState(roadmapState);
   const [step, setStep] = useRecoilState(currentStepState);
+  const [step1Data, setStep1Data] = useRecoilState(step1State);
+  const [step2Data, setStep2Data] = useRecoilState(step2State);
+  const [step3Data, setStep3Data] = useRecoilState(step3State);
+  const [step4Data, setStep4Data] = useRecoilState(step4State);
+
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
   const handleSubmit = () => {
     try {
+      // 로드맵 생성 API 호출
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (step === 5) {
+      console.table({
+        step1Data,
+        step2Data,
+        step3Data,
+        step4Data,
+      });
+    }
+  }, [step]);
 
   return (
     <section className="bg-white h-screen flex flex-col items-center pretendard pt-32">
