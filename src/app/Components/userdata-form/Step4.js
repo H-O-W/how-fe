@@ -1,5 +1,7 @@
+import { currentStepState, step4State } from "@/app/Store/roadmapFormState";
 import React, { useState } from "react";
 import Select from "react-select";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 const Step4 = ({ onSubmit, onPrev }) => {
   const [digitalLiteracy, setDigitalLiteracy] = useState(null);
@@ -7,6 +9,21 @@ const Step4 = ({ onSubmit, onPrev }) => {
   const [interests, setInterests] = useState("");
   const [strengths, setStrengths] = useState("");
   const [workSupport, setWorkSupport] = useState("");
+  const [step4Data, setStep4Data] = useRecoilState(step4State);
+  const setCurrentStep = useSetRecoilState(currentStepState);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 폼 데이터 처리
+    setStep4Data({
+      digitalLiteracy: digitalLiteracy?.value,
+      languageSkills: languageSkills.map((lang) => lang.value),
+      interests,
+      strengths,
+      workSupport,
+    });
+    setCurrentStep(5); // 다음 단계로 이동
+  };
 
   const digitalLiteracyOptions = [
     { value: "beginner", label: "초보자" },
@@ -24,17 +41,6 @@ const Step4 = ({ onSubmit, onPrev }) => {
     { value: "french", label: "프랑스어" },
     { value: "german", label: "독일어" },
   ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({
-      digitalLiteracy: digitalLiteracy?.value,
-      languageSkills: languageSkills.map((lang) => lang.value),
-      interests,
-      strengths,
-      workSupport,
-    });
-  };
 
   const customStyles = {
     control: (provided) => ({

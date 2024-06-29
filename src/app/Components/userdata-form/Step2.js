@@ -1,5 +1,7 @@
+import { currentStepState, step2State } from "@/app/Store/roadmapFormState";
 import React, { useState, useRef } from "react";
 import Select from "react-select";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 const Step2 = ({ onNext, onPrev }) => {
   const [selectedEducation, setSelectedEducation] = useState(null);
@@ -8,7 +10,15 @@ const Step2 = ({ onNext, onPrev }) => {
   const [experience, setExperience] = useState("");
 
   const licenseAddBtnRef = useRef(null);
+  const [step2Data, setStep2Data] = useRecoilState(step2State);
+  const setCurrentStep = useSetRecoilState(currentStepState);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 폼 데이터 처리
+    setStep2Data({ education: selectedEducation, licenses, experience });
+    setCurrentStep(3); // 다음 단계로 이동
+  };
   // react-select 커스텀 스타일
   const customStyles = {
     control: (provided) => ({
@@ -44,11 +54,6 @@ const Step2 = ({ onNext, onPrev }) => {
 
   const removeLicense = (license) => {
     setLicenses(licenses.filter((l) => l !== license));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onNext({ education, licenses, experience });
   };
 
   const educations = [

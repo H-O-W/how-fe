@@ -1,11 +1,27 @@
+import { currentStepState, step3State } from "@/app/Store/roadmapFormState";
 import React, { useState } from "react";
 import Select from "react-select";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 const Step3 = ({ onNext, onPrev }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
   const [commuteDistance, setCommuteDistance] = useState("");
   const [selectedRemotePreference, setSelectedRemotePreference] = useState(null);
+  const [step3Data, setStep3Data] = useRecoilState(step3State);
+  const setCurrentStep = useSetRecoilState(currentStepState);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 폼 데이터 처리
+    setStep3Data({
+      region: selectedRegion?.value,
+      job: selectedJob?.value,
+      commuteDistance,
+      remotePreference: selectedRemotePreference?.value,
+    });
+    setCurrentStep(4); // 다음 단계로 이동
+  };
 
   const regionOptions = [
     { value: "seoul", label: "서울" },
@@ -46,16 +62,6 @@ const Step3 = ({ onNext, onPrev }) => {
     { value: "office-based", label: "사무실 근무 선호" },
     { value: "flexible", label: "유연함" },
   ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onNext({
-      region: selectedRegion?.value,
-      job: selectedJob?.value,
-      commuteDistance,
-      remotePreference: selectedRemotePreference?.value,
-    });
-  };
 
   const customStyles = {
     control: (provided) => ({
