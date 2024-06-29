@@ -1,14 +1,14 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { HiChevronDown } from "react-icons/hi2";
 import { HiChevronUp } from "react-icons/hi2";
 import QuestionBox from "../Components/QuestionBox";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import NoticeBox from "../Components/NoticeBox";
+import { useParams, usePathname } from "next/navigation";
 
 const CustomerService = () => {
   const [activeTab, setActiveTab] = useState("inquiries");
+  const pathname = usePathname();
 
   const tabContent = {
     inquiries: {
@@ -35,20 +35,28 @@ const CustomerService = () => {
     <div className="container mx-auto p-4 flex gap-2 pt-24 mt-16">
       <div className="w-48 text-xl flex flex-col gap-6">
         <Link href={"/faq"}>
-          <h2 className={`font-semibold text-gray-400`}>자주 묻는 질문</h2>
+          <h2 className="font-semibold">자주 묻는 질문</h2>
         </Link>
         <Link href={"/notice"}>
-          <h2 className={`font-semibold `}>공지사항</h2>
+          <h2 className="font-semibold text-gray-400">공지사항</h2>
         </Link>
       </div>
       <div className="flex-1">
-        <h2 className="text-3xl font-extrabold">공지사항</h2>
+        <h2 className="text-3xl font-extrabold">자주 묻는 질문</h2>
         <div className="mt-5 mb-6 flex gap-2 text-xl font-semibold cursor-pointer">
-          <span className="text-red-500 hover:text-red-500">전체</span>
-          <span className="text-gray-500 hover:text-red-500">학습데이터</span>
+          <span className="text-emerald-500 hover:text-emerald-500">전체</span>
+          <span className="text-gray-500 hover:text-emerald-500">로드맵</span>
+          <span className="text-gray-500 hover:text-emerald-500">관리</span>
         </div>
         <div className="mt-6 border-t">
-          <NoticeBox title={"1차 학습데이터 고지"} />
+          <QuestionBox
+            question={"로드맵이 생성이 안돼요!"}
+            answer={
+              "로드맵을 생성하기 위해서는 정확한 정보가 필요합니다. 모든 정보가 올바르게 입력되었는지 다시 한번 확인해주세요. 만약 같은 문제가 계속될 경우에는 고객센터로 문의를 부탁드립니다."
+            }
+          />
+          <QuestionBox question={"경력이 없어도 가능한가요?"} answer={"Why are you running!!"} />
+          <QuestionBox question={"Why are you running?"} answer={"Why are you running!!"} />
         </div>
       </div>
     </div>
