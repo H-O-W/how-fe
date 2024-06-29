@@ -7,10 +7,12 @@ import Step1 from "../Components/userdata-form/Step1";
 import Step2 from "../Components/userdata-form/Step2";
 import Step3 from "../Components/userdata-form/Step3";
 import Step4 from "../Components/userdata-form/Step4";
+import { currentStepState } from "../Store/roadmapFormState";
+import { FaSpinner } from "react-icons/fa";
 
 const RoadMapPage = () => {
   const [existRoadmap, setExistRoadmap] = useRecoilState(roadmapState);
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useRecoilState(currentStepState);
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
@@ -22,7 +24,7 @@ const RoadMapPage = () => {
   };
 
   return (
-    <section className="bg-white h-screen flex flex-col justify-center items-center pretendard">
+    <section className="bg-white h-screen flex flex-col items-center pretendard pt-32">
       {existRoadmap ? (
         <div></div>
       ) : (
@@ -88,12 +90,21 @@ const RoadMapPage = () => {
           </div>
           <div>
             <div className="text-xl">{step}단계:</div>
-            <div className="">로드맵을 생성하기 위해서는 아래 정보가 필요해요!</div>
+            {step < 5 && <div className="">로드맵을 생성하기 위해서는 아래 정보가 필요해요!</div>}
           </div>
           {step === 1 && <Step1 onNext={nextStep} />}
           {step === 2 && <Step2 onNext={nextStep} onPrev={prevStep} />}
           {step === 3 && <Step3 onNext={nextStep} onPrev={prevStep} />}
           {step === 4 && <Step4 onPrev={prevStep} onSubmit={handleSubmit} />}
+          {step === 5 && (
+            <div className="flex flex-col w-full items-center">
+              <p className="w-full text-left">입력해주신 정보들로 로드맵을 생성하는 중이에요!</p>
+              <div className="w-2/3 aspect-square flex flex-col items-center justify-center gap-3  opacity-60">
+                <FaSpinner className="text-3xl animate-spin" />
+                <div>로드맵 생성 중...</div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </section>

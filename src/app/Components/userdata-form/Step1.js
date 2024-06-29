@@ -1,10 +1,21 @@
+import { currentStepState, step1State } from "@/app/Store/roadmapFormState";
 import React, { useState } from "react";
 import Select from "react-select";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 const Step1 = ({ onNext }) => {
   const [age, setAge] = useState("");
   const [selectedDisability, setSelectedDisability] = useState(null);
   const [disabilityDegree, setDisabilityDegree] = useState("");
+  const [step1Data, setStep1Data] = useRecoilState(step1State);
+  const setCurrentStep = useSetRecoilState(currentStepState);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 폼 데이터 처리
+    setStep1Data({ age, disability: selectedDisability?.value, disabilityDegree });
+    setCurrentStep(2); // 다음 단계로 이동
+  };
 
   const disabilityCategories = [
     { value: "physical", label: "지체장애" },
@@ -25,12 +36,6 @@ const Step1 = ({ onNext }) => {
 
   const handleDisabilityChange = (selectedOption) => {
     setSelectedDisability(selectedOption);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 여기에서 유효성 검사를 수행할 수 있습니다.
-    onNext({ age, disability: selectedDisability?.value, disabilityDegree });
   };
 
   const customStyles = {
