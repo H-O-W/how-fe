@@ -79,6 +79,7 @@ const Step1 = ({ onNext }) => {
         </label>
         <Select
           id="disability-select"
+          instanceId={"disability-select"}
           options={disabilityCategories}
           value={selectedDisability}
           onChange={handleDisabilityChange}
@@ -93,12 +94,13 @@ const Step1 = ({ onNext }) => {
         </label>
         <Select
           id="disability-degree"
+          instanceId={"disability-degree"}
           options={disabilityDegrees}
           value={disabilityDegree}
           onChange={setDisabilityDegree}
           placeholder="장애 정도를 선택하세요"
           styles={customStyles}
-        ></Select>
+        />
       </div>
 
       <button

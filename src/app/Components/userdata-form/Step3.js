@@ -89,6 +89,7 @@ const Step3 = ({ onNext, onPrev }) => {
         </label>
         <Select
           id="region-select"
+          instanceId="region-select"
           options={regionOptions}
           value={selectedRegion}
           onChange={setSelectedRegion}
@@ -103,6 +104,7 @@ const Step3 = ({ onNext, onPrev }) => {
         </label>
         <Select
           id="job-select"
+          instanceId="job-select"
           options={jobOptions}
           value={selectedJob}
           onChange={setSelectedJob}

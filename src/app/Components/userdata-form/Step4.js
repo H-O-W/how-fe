@@ -68,6 +68,7 @@ const Step4 = ({ onSubmit, onPrev }) => {
         </label>
         <Select
           id="digital-literacy"
+          instanceId="digital-literacy"
           options={digitalLiteracyOptions}
           value={digitalLiteracy}
           onChange={setDigitalLiteracy}
@@ -82,6 +83,7 @@ const Step4 = ({ onSubmit, onPrev }) => {
         </label>
         <Select
           id="language-skills"
+          instanceId="language-skills"
           options={languageOptions}
           value={languageSkills}
           onChange={setLanguageSkills}
