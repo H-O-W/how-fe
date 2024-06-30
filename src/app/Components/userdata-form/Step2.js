@@ -74,6 +74,7 @@ const Step2 = ({ onNext, onPrev }) => {
         </label>
         <Select
           id="education-select"
+          instanceId="education-select"
           options={educations}
           value={selectedEducation}
           onChange={setSelectedEducation}
