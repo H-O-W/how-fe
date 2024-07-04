@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-
+import Link from "next/link";
 const MyPage = () => {
   const [username, setUsername] = useState("이름");
   const [phone, setPhone] = useState("전화번호");
-  const [email, setEmail] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [email, setEmail] = useState("이메일");
+  const [profileImage, setProfileImage] = useState("https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn2.ppomppu.co.kr%2Fzboard%2Fdata3%2F2022%2F0509%2F20220509173224_d9N4ZGtBVR.jpeg&type=sc960_832");
 
   return (
     <section className="bg-white h-screen flex justify-center items-center">
@@ -29,11 +29,11 @@ const MyPage = () => {
 
           <div className="w-2/3">
             <div className="text-3xl font-bold mb-4">{username}</div>
-            <div className="text-lg text-gray-600 mb-4">{phone}</div>
-            <div className="text-lg text-gray-600 mb-8">{email}</div>
-            <button className="px-4 py-2 bg-gray-300 text-white rounded-full">
+            <div className="text-lg text-gray-600 mb-2">{phone}</div>
+            <div className="text-lg text-gray-600 mb-6">{email}</div>
+            <Link href={"/mypage/update"} className="px-4 py-2 bg-gray-300 text-white rounded-full">
               정보 수정
-            </button>
+            </Link>
           </div>
         </div>
 
