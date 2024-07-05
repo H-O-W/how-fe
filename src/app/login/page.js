@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiMiniUserCircle } from "react-icons/hi2";
@@ -6,12 +7,9 @@ import { HiOutlineMail } from "react-icons/hi";
 import { HiPhone } from "react-icons/hi2";
 import { HiLockClosed } from "react-icons/hi";
 import { HiOutlineX } from "react-icons/hi";
-<<<<<<< Updated upstream
-=======
 import { jsx, css } from "@emotion/react";
 import { LiaSpinnerSolid } from "react-icons/lia";
 import axios from "axios";
->>>>>>> Stashed changes
 
 const LoginPage = () => {
   // 상태관리
@@ -22,47 +20,51 @@ const LoginPage = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
 
   // UI 상태
+  const [loginLoading, setLoginLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Effect
   useEffect(() => {
-    const loadImage = (imageUrl) => {
-      return new Promise((resolve, reject) => {
+    if (typeof window !== "undefined") {
+      const getImageUrl = (width) => {
+        if (width <= 640) return "/bg/bg-S.jpg";
+        if (width <= 1024) return "/bg/bg-M.jpg";
+        if (width <= 1440) return "/bg/bg-L.jpg";
+        return "/bg/bg-XL.jpg";
+      };
+
+      const loadImage = (src) => {
         const img = new Image();
-        img.src = imageUrl;
-        img.onload = () => resolve(img);
-        img.onerror = (err) => reject(err);
-      });
-    };
+        img.src = src;
+        img.onload = () => setIsLoaded(true);
+        img.onerror = () => {
+          console.error("배경 이미지 로드 실패");
+          setIsLoaded(true);
+        };
+      };
 
-    const loadBackgroundImage = async () => {
-      try {
-        const imageUrl = getBackgroundImageUrl();
-        await loadImage(imageUrl);
-        setIsLoaded(true);
-      } catch (error) {
-        console.error("배경 이미지 로딩 실패:", error);
-        setIsLoaded(true); // 에러 발생 시에도 로딩 화면 제거
-      }
-    };
+      const handleResize = () => {
+        const imageUrl = getImageUrl(window.innerWidth);
+        loadImage(imageUrl);
+      };
 
-    loadBackgroundImage();
+      // 초기 로드
+      handleResize();
+
+      // 리사이즈 이벤트 리스너 추가
+      window.addEventListener("resize", handleResize);
+
+      // 클린업 함수
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, []);
-
-  const getBackgroundImageUrl = () => {
-    // 화면 크기에 따라 다른 이미지 URL 반환
-    if (window.innerWidth >= 1440) return "../bg/bg-XL.jpg";
-    if (window.innerWidth >= 1024) return "../bg/bg-L.jpg";
-    if (window.innerWidth >= 768) return "../bg/bg-M.jpg";
-    return "../bg/bg-S.jpg";
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // 여기에 로그인 또는 회원가입 로직을 구현합니다.
-<<<<<<< Updated upstream
-=======
     if (isLogin) {
       postLogin();
     } else {
@@ -70,7 +72,6 @@ const LoginPage = () => {
       postRegister();
     }
     setLoginLoading(true);
->>>>>>> Stashed changes
     console.log("Form submitted", { username, phone, email, password, passwordCheck });
   };
 
@@ -115,10 +116,10 @@ const LoginPage = () => {
 
   return (
     <div
-      style={{ backgroundImage: `url(${getBackgroundImageUrl()})` }}
       className={`relative LoginPage flex items-center justify-center min-h-screen ${
         isLoaded && "loaded"
       }`}
+      on={() => setIsLoaded(true)}
     >
       {!isLoaded && (
         <div className="absolute w-screen h-screen">
@@ -203,7 +204,13 @@ const LoginPage = () => {
               type="submit"
               className="w-full px-4 py-3 text-lg font-semibold text-white bg-gradient-to-r from-emerald-400 to-green-400 rounded-full hover:from-emerald-500 hover:to-green-500 focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
             >
-              {isLogin ? "로그인" : "회원가입"}
+              {loginLoading ? (
+                <LiaSpinnerSolid className="animate-spin h-7 mx-auto text-2xl" />
+              ) : isLogin ? (
+                "로그인"
+              ) : (
+                "회원가입"
+              )}
             </button>
           </form>
           <div className="mt-8 text-sm text-center text-white">
