@@ -9,6 +9,7 @@ import { HiLockClosed } from "react-icons/hi";
 import { HiOutlineX } from "react-icons/hi";
 import { jsx, css } from "@emotion/react";
 import { LiaSpinnerSolid } from "react-icons/lia";
+import axios from "axios";
 
 const LoginPage = () => {
   // 상태관리
@@ -23,6 +24,7 @@ const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Effect
   useEffect(() => {
     if (typeof window !== "undefined") {
       const getImageUrl = (width) => {
@@ -63,6 +65,12 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // 여기에 로그인 또는 회원가입 로직을 구현합니다.
+    if (isLogin) {
+      postLogin();
+    } else {
+      // 회원가입
+      postRegister();
+    }
     setLoginLoading(true);
     console.log("Form submitted", { username, phone, email, password, passwordCheck });
   };
@@ -75,6 +83,35 @@ const LoginPage = () => {
     setEmail("");
     setPassword("");
     setPasswordCheck("");
+  };
+
+  // HTTP Methods
+  const postRegister = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/user/join", {
+        email,
+        name: username,
+        phoneNumber: phone,
+        password: password,
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const postLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/user/login", {
+        email,
+        password,
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
