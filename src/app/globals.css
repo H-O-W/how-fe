@@ -30,18 +30,17 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
-  font-family: "yg-jalnan";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
     format("woff");
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
 }
 
 body {
   background-color: white;
-  font-family: "yg-jalnan", "KCC-Hanbit", sans-serif;
+  font-family: "Pretendard-Regular", "KCC-Hanbit", sans-serif;
 }
 
 @layer utilities {
@@ -69,41 +68,120 @@ CSS 작성 규칙
   padding: 3em;
   display: flex;
   flex-direction: column;
-  font-family: "KCC-Hanbit";
+  font-family: "Pretendard-Regular";
+}
+
+.pretendard {
+  font-family: "Pretendard-Regular";
 }
 
 /* Navbar Style */
 nav {
-  font-family: "yg-jalnan", "KCC-Hanbit", sans-serif;
+  font-family: "Pretendard-Regular", "KCC-Hanbit", sans-serif;
 }
+
 nav ul li {
   cursor: pointer;
-  border-radius: 8px;
-  transition: 300ms;
+  transition: 200ms ease-in-out;
   padding: 0.2em 0.5em;
+  border-color: transparent;
 }
 
 nav ul li:hover {
-  background-color: white;
-  color: black;
+  border-bottom: 1px solid black;
 }
 
 /* MainPage Style */
 
+.info-wrapper img {
+  border-radius: 8px;
+}
+
+.info-wrapper h4 {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.info-wrapper p {
+  font-size: 1.1em;
+  font-weight: 200;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animation-delay-450 {
+  animation-delay: 0.45s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* MyPage Style */
 
+/* RoadmapCreate Style */
+.successLine {
+  position: absolute;
+}
+
 /* UserInfoForm */
-.user-detail-form input {
+.user-detail-form input.customStyle {
   border-color: #e2e8f0;
   outline-color: #4299e1;
+  outline-width: 0;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  box-sizing: border-box;
 }
-.user-detail-form button {
+
+.user-detail-form input:hover {
+  border-color: #cbd5e0;
+}
+
+.user-detail-form input.customStyle:focus {
+  box-shadow: 0 0 0 1px #2684ff;
+}
+
+.user-detail-form div.customStyle:focus-within button {
+  box-shadow: 0 0 0 1px #2684ff;
+}
+
+.user-detail-form button.addBtn {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-
 /* Login Page Style */
 .LoginPage {
   background-color: gainsboro;
@@ -115,9 +193,20 @@ nav ul li:hover {
 }
 
 /* 기본 (S 사이즈) */
-/* .LoginPage {
-  background-image: url("../Images/bg-S.jpg");
-} */
+.LoginPage {
+  background-image: image-set(
+    url("/bg/bg-XL.jpg") 1x,
+    url("/bg/bg-L.jpg") 2x,
+    url("/bg/bg-M.jpg") 3x,
+    url("/bg/bg-S.jpg") 4x
+  );
+  background-image: -webkit-image-set(
+    url("/bg/bg-XL.jpg") 1x,
+    url("/bg/bg-L.jpg") 2x,
+    url("/bg/bg-M.jpg") 3x,
+    url("/bg/bg-S.jpg") 4x
+  ); /* Chrome, Safari, Opera */
+}
 
 .LoginPage::before {
   content: "";
@@ -217,6 +306,13 @@ a {
 }
 
 /* Sections */
+.maxWidth {
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+  padding: 2.5rem;
+}
+
 .section {
   height: 100vh;
   min-height: 500px;

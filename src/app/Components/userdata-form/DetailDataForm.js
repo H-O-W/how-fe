@@ -1,13 +1,19 @@
 "use client";
 import React, { useRef, useState } from "react";
+import { LiaSpinnerSolid } from "react-icons/lia";
 import Select from "react-select";
 
 const DetailDataForm = () => {
+  // 상태 관리
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedDisability, setSelectedDisability] = useState(null);
   const [licenses, setLicenses] = useState([]);
   const [licenseInput, setLicenseInput] = useState("");
+
+  // UI 상태 관리
+  const [sumbitLoading, setSubmitLoading] = useState(false);
+
   const regionCategories = [
     { value: "seoul", label: "서울" },
     { value: "gyeonggi", label: "경기" },
@@ -69,6 +75,7 @@ const DetailDataForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitLoading(true);
     console.log("선택된 직종:", selectedJob?.value);
     console.log("선택된 장애분류:", selectedDisability?.value);
     // 여기에 폼 제출 로직을 추가하세요
@@ -190,7 +197,11 @@ const DetailDataForm = () => {
         type="submit"
         className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:shadow-outline"
       >
-        로드맵 생성
+        {sumbitLoading ? (
+          <LiaSpinnerSolid className="animate-spin h-7 mx-auto text-2xl" />
+        ) : (
+          "다음 단계"
+        )}
       </button>
     </form>
   );
