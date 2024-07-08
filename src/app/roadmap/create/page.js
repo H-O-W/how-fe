@@ -15,6 +15,7 @@ import {
   step4State,
 } from "../../Store/roadmapFormState";
 import { FaSpinner } from "react-icons/fa";
+import axios from "axios";
 
 const RoadMapPage = () => {
   const [existRoadmap, setExistRoadmap] = useRecoilState(roadmapState);
@@ -27,9 +28,17 @@ const RoadMapPage = () => {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
       // 로드맵 생성 API 호출
+      const response = await axios.post("http://localhost:8080/userDetail", {
+        ...step1Data,
+        ...step2Data,
+        ...step3Data,
+        ...step4Data,
+      });
+
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -43,6 +52,7 @@ const RoadMapPage = () => {
         step3Data,
         step4Data,
       });
+      handleSubmit();
     }
   }, [step]);
 
