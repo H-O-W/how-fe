@@ -119,6 +119,7 @@ const LoginPage = () => {
         localStorage.setItem("accessToken", response.data.accessToken);
         setIsLoggedIn(true);
         navigate.push("/");
+      } else {
       }
       console.log(response);
     } catch (error) {
