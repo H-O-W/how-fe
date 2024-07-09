@@ -10,8 +10,14 @@ import { HiOutlineX } from "react-icons/hi";
 import { jsx, css } from "@emotion/react";
 import { LiaSpinnerSolid } from "react-icons/lia";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import userState from "../Store/userState";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+  // 전역 상태 관리
+  const navigate = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userState);
   // 상태관리
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
@@ -88,13 +94,14 @@ const LoginPage = () => {
   // HTTP Methods
   const postRegister = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/user/join", {
+      const response = await axios.post("http://localhost:8080/member/signup", {
         email,
         name: username,
         phoneNumber: phone,
         password: password,
       });
 
+      if (response) alert("회원가입이 완료되었습니다. 로그인해주세요.");
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -103,11 +110,16 @@ const LoginPage = () => {
 
   const postLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/user/login", {
+      const response = await axios.post("http://localhost:8080/member/login", {
         email,
         password,
       });
 
+      if (response.data.accessToken) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        setIsLoggedIn(true);
+        navigate.push("/");
+      }
       console.log(response);
     } catch (error) {
       console.error(error);
