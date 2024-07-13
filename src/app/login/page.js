@@ -116,7 +116,7 @@ const LoginPage = () => {
         setError("회원가입에 실패했습니다.");
         console.error(error);
       }
-    }finally {
+    } finally {
       setLoginLoading(false);
     }
   };
@@ -136,7 +136,6 @@ const LoginPage = () => {
       } else {
         setError("로그인 실패");
       }
-      console.log(response);
     } catch (error) {
       if (error.response.status === 403) {
         setError("잘못된 이메일 혹은 비밀번호입니다. 다시 시도해주세요.");

@@ -8,6 +8,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { CiImageOn } from "react-icons/ci";
+import { useRecoilState } from "recoil";
+import userState from "@/app/Store/userState";
 
 const CommunityPostPage = () => {
   // 상태 관리
@@ -32,6 +34,20 @@ const CommunityPostPage = () => {
   const navigate = useRouter();
   const inputRef = useRef(null);
   const editorRef = useRef(null);
+
+  // 전역 상태 관리
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userState);
+
+  // Effect
+  useEffect(() => {
+    if (isLoggedIn !== undefined) {
+      if (isLoggedIn) {
+      } else {
+        alert("로그인한 사용자만 글을 쓸 수 있습니다. 로그인해주세요.");
+        navigate.push("/");
+      }
+    }
+  }, [navigate, isLoggedIn]);
 
   const validateForm = () => {
     if (!postTitle.trim()) {
