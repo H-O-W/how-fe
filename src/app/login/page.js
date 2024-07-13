@@ -29,6 +29,7 @@ const LoginPage = () => {
   const [loginLoading, setLoginLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState("");
 
   // Effect
   useEffect(() => {
@@ -82,7 +83,9 @@ const LoginPage = () => {
   };
 
   const toggleAuthMode = () => {
+    setError("");
     setIsLogin(!isLogin);
+    setLoginLoading(false);
     // 폼 리셋
     setUsername("");
     setPhone("");
@@ -100,16 +103,27 @@ const LoginPage = () => {
         phoneNumber: phone,
         password: password,
       });
+      console.log(response.status);
 
-      if (response) alert("회원가입이 완료되었습니다. 로그인해주세요.");
-      console.log(response);
+      if (response.data.id) {
+        alert("회원가입이 완료되었습니다. 로그인해주세요.");
+        navigate.push("/login");
+      }
     } catch (error) {
-      console.error(error);
+      if (error.response.status === 403) {
+        setError("이미 가입된 회원입니다. 로그인해주세요.");
+      } else {
+        setError("회원가입에 실패했습니다.");
+        console.error(error);
+      }
+    }finally {
+      setLoginLoading(false);
     }
   };
 
   const postLogin = async () => {
     try {
+      setError("");
       const response = await axios.post("http://localhost:8080/member/login", {
         email,
         password,
@@ -120,10 +134,18 @@ const LoginPage = () => {
         setIsLoggedIn(true);
         navigate.push("/");
       } else {
+        setError("로그인 실패");
       }
       console.log(response);
     } catch (error) {
-      console.error(error);
+      if (error.response.status === 403) {
+        setError("잘못된 이메일 혹은 비밀번호입니다. 다시 시도해주세요.");
+      } else {
+        setError("로그인 실패");
+        console.error(error);
+      }
+    } finally {
+      setLoginLoading(false);
     }
   };
 
@@ -226,6 +248,7 @@ const LoginPage = () => {
               )}
             </button>
           </form>
+
           <div className="mt-8 text-sm text-center text-white">
             <p>
               {isLogin ? "회원이 아니신가요?" : "이미 회원이신가요?"}
@@ -237,6 +260,7 @@ const LoginPage = () => {
               </button>
             </p>
           </div>
+          {error && <div className="my-0 p-2 text-right text-sm text-red-400">{error}</div>}
         </div>
       </div>
     </div>
