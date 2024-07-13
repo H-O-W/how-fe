@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -29,8 +28,8 @@ const CoummunityWritePage = () => {
   const [success, setSuccess] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  // const searchParams = useSearchParams();
+  // const id = searchParams.get("id");
   const [isEdit, setIsEdit] = useState(false);
 
   const navigate = useRouter();
