@@ -75,6 +75,7 @@ const CommunityPostPage = () => {
 
     try {
       if (!isEdit) {
+        createPost();
         setSuccess("게시글 작성이 완료되었습니다.");
       } else {
         if (id) {
@@ -100,6 +101,21 @@ const CommunityPostPage = () => {
     }),
     []
   );
+
+  // Method
+  const server = "http://localhost:8080";
+  const createPost = async () => {
+    try {
+      const response = await axios.post(`${server}/board/create`, {
+        title: postTitle,
+        content: postContent,
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <section className="page">
