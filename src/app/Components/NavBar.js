@@ -20,7 +20,7 @@ const NavBar = () => {
         <li onClick={() => navigate.push("/")}>소개</li>
         <li onClick={() => navigate.push("/roadmap")}>로드맵</li>
         <li onClick={() => navigate.push("/faq")}>고객센터</li>
-        <li onClick={() => navigate.push("/mypage")}>마이페이지</li>
+        <li onClick={() => navigate.push("/community")}>커뮤니티</li>
         {isLoggedIn ? (
           <li onClick={() => navigate.push("/mypage")}>마이페이지</li>
         ) : (
