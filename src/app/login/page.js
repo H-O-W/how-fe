@@ -103,14 +103,14 @@ const LoginPage = () => {
         phoneNumber: phone,
         password: password,
       });
-      console.log(response.status);
 
       if (response.data.id) {
+        setIsLogin(true);
         alert("회원가입이 완료되었습니다. 로그인해주세요.");
-        navigate.push("/login");
       }
     } catch (error) {
       if (error.response.status === 403) {
+        setIsLogin(true);
         setError("이미 가입된 회원입니다. 로그인해주세요.");
       } else {
         setError("회원가입에 실패했습니다.");
@@ -153,7 +153,7 @@ const LoginPage = () => {
       className={`relative LoginPage flex items-center justify-center min-h-screen ${
         isLoaded && "loaded"
       }`}
-      on={() => setIsLoaded(true)}
+      onLoad={() => setIsLoaded(true)}
     >
       {!isLoaded && (
         <div className="absolute w-screen h-screen">
