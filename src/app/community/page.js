@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import CommunityPreview from "../Components/CommunityPreview";
 import axios from "axios";
@@ -9,12 +9,13 @@ import { useRouter } from "next/navigation";
 const CommunityBoard = () => {
   const navigate = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
-  const posts = [
+
+  const [posts, setPosts] = useState([
     { id: 1, title: "제목1", date: "2023-06-01", likes: 10, author: "사용자1" },
     { id: 2, title: "제목2", date: "2023-06-02", likes: 20, author: "사용자2" },
     { id: 3, title: "제목3", date: "2023-06-03", likes: 30, author: "사용자3" },
     { id: 4, title: "제목4", date: "2023-06-04", likes: 40, author: "사용자4" },
-  ];
+  ]);
 
   const filteredPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -22,11 +23,21 @@ const CommunityBoard = () => {
 
   const getPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/board/list");
+      const response = await axios.get("http://localhost:8080/board/list", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setPosts((prev) => [...prev, ...response.data]);
+      console.log("글 불러오기 결과", response);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <section className="container mx-auto p-4 pt-24 mt-16 mb-16">
@@ -53,6 +64,12 @@ const CommunityBoard = () => {
           <CommunityPreview
             key={post.id}
             post={post}
+            title={post.title}
+            content={post.content}
+            author={post.writer}
+            date={post.writeDate}
+            likes={post.likes || 0}
+            comments={post.comments || 0}
             navigate={() => navigate.push(`/community/${post.id}`)}
           />
         ))}
