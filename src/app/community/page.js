@@ -31,7 +31,7 @@ const CommunityBoard = () => {
   return (
     <section className="container mx-auto p-4 pt-24 mt-16 mb-16">
       <div className="flex justify-between">
-        <h1 className="text-3xl font-bold text-emerald-700 mb-6">HOW 커뮤니티</h1>
+        <h1 className="text-3xl font-bold text-black mb-6">하우 커뮤니티</h1>
         <div onClick={() => navigate.push("/community/write")}>
           <button className="px-4 py-1 m-2 font-bold text-xl rounded-lg bg-white text-black border shadow hover:shadow-md hover:translate-y-0.5 transition">
             글 작성
@@ -49,12 +49,6 @@ const CommunityBoard = () => {
         <Search className="absolute left-3 top-2.5 text-black" size={20} />
       </div>
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <div className="grid grid-cols-12 bg-green-100 p-3 font-semibold text-green-800">
-          <div className="col-span-6">제목</div>
-          <div className="col-span-2">작성자</div>
-          <div className="col-span-2">날짜</div>
-          <div className="col-span-2">좋아요</div>
-        </div>
         {filteredPosts.map((post) => (
           <CommunityPreview
             key={post.id}
