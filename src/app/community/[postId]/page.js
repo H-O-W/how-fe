@@ -57,14 +57,25 @@ const PostDetailViewPage = () => {
 
   const handleAddComment = () => {
     if (comment.trim() !== "") {
-      setCommentList([
-        ...commentList,
-        { id: commentList.length + 1, comment, date: new Date().toISOString().split("T")[0] },
-      ]);
-      setComment("");
-      setComments(comments + 1);
+      postComment();
     }
   };
+
+  const postComment = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8080/comment/create/${post.boardId}`, {
+        content: comment.trim(),
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      })
+      console.log('댓글 등록 결과', response)
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
 
   return (
     <section className="container mx-auto p-4 max-w-5xl mt-24">
