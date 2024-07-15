@@ -10,12 +10,7 @@ const CommunityBoard = () => {
   const navigate = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [posts, setPosts] = useState([
-    { id: 1, title: "제목1", date: "2023-06-01", likes: 10, author: "사용자1" },
-    { id: 2, title: "제목2", date: "2023-06-02", likes: 20, author: "사용자2" },
-    { id: 3, title: "제목3", date: "2023-06-03", likes: 30, author: "사용자3" },
-    { id: 4, title: "제목4", date: "2023-06-04", likes: 40, author: "사용자4" },
-  ]);
+  const [posts, setPosts] = useState([]);
 
   const filteredPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -31,7 +26,22 @@ const CommunityBoard = () => {
       setPosts((prev) => [...prev, ...response.data]);
       console.log("글 불러오기 결과", response);
     } catch (error) {
+      if (error.response.status === 403) refreshAccessToken();
+
       console.error(error);
+    }
+  };
+
+  const refreshAccessToken = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (refreshToken) {
+      const response = await axios.post("http://localhost:8080/member/reissue", {
+        headers: {
+          Authorization: "Bearer " + refreshToken,
+        },
+      });
+
+      console.log("리프레시토큰 발급", response);
     }
   };
 
@@ -62,15 +72,14 @@ const CommunityBoard = () => {
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         {filteredPosts.map((post) => (
           <CommunityPreview
-            key={post.id}
-            post={post}
+            key={post.boardId}
             title={post.title}
             content={post.content}
             author={post.writer}
             date={post.writeDate}
             likes={post.likes || 0}
             comments={post.comments || 0}
-            navigate={() => navigate.push(`/community/${post.id}`)}
+            navigate={() => navigate.push(`/community/${post.boardId}`)}
           />
         ))}
       </div>
