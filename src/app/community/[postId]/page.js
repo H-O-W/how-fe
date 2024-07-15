@@ -5,15 +5,18 @@ import { FcLike } from "react-icons/fc";
 import { FaRegComment } from "react-icons/fa";
 import Comment from "@/app/Components/Comment";
 import Image from "next/image";
+import axios from "axios";
 
 const PostDetailViewPage = () => {
   const { postId } = useParams();
-  const [title, setTitle] = useState("궁금한게 있습니다");
-  const [content, setContent] = useState("그것은..... 바로.........");
-  const [author, setAuthor] = useState("관리자");
+  const [post, setPost] = useState(null);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [author, setAuthor] = useState("");
   const [date, setDate] = useState("2024.07.14. 13:03");
   const [likes, setLikes] = useState(0);
   const [authorProfileThumbnail, setAuthorProfileThumbnail] = useState("");
+  const [postLoading, setPostLoading] = useState(true)
 
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(false);
@@ -27,10 +30,25 @@ const PostDetailViewPage = () => {
 
   useEffect(() => {
     if (postId) {
-      // postId를 사용하여 실제 데이터를 불러오는 로직 추가
-      // 예: fetch(`/api/posts/${postId}`).then(...)
+      getPostDetail(postId);
     }
   }, [postId]);
+
+  // Method
+  const getPostDetail = async (postId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/board/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setPost(response.data);
+      console.log(response);
+      setPostLoading(false)
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const toggleLike = () => {
     setLiked(!liked);
@@ -50,7 +68,7 @@ const PostDetailViewPage = () => {
 
   return (
     <section className="container mx-auto p-4 max-w-5xl mt-24">
-      <div className="bg-white border border-gray-200 rounded-lg shadow-md">
+      {postLoading ? <div>Loading...</div> : <div className="bg-white border border-gray-200 rounded-lg shadow-md">
         <div className="p-5">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
@@ -66,9 +84,9 @@ const PostDetailViewPage = () => {
                 <div className="bg-gray-200 w-10 h-10 rounded-full mr-3"></div>
               )}
               <div>
-                <h2 className="text-xl font-semibold">{title}</h2>
+                <h2 className="text-xl font-semibold">{post.title}</h2>
                 <p className="text-sm text-gray-500">
-                  {author} • {date}
+                  {post.writer} • {new Date(post.writeDate).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -89,7 +107,7 @@ const PostDetailViewPage = () => {
               </svg>
             </button>
           </div>
-          <p className="text-gray-700 mb-4">{content}</p>
+          <p className="text-gray-700 mb-4">{post.content}</p>
           <div className="flex items-center space-x-4">
             <button
               className="flex items-center text-gray-400 hover:text-red-500"
@@ -126,7 +144,7 @@ const PostDetailViewPage = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> }
     </section>
   );
 };
