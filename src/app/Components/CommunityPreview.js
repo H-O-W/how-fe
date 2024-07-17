@@ -7,7 +7,6 @@ const CommunityPreview = ({ post }) => {
   const [title, setTitle] = useState(post.title);
   const [date, setDate] = useState(post.date);
   const [likes, setLikes] = useState(post.likes);
-  const [author, setAuthor] = useState(post.author);
 
   return (
     <div className="border border-gray-300 rounded-lg p-4 my-4 w-11/12 mx-auto flex justify-between items-center">
