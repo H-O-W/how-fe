@@ -79,7 +79,6 @@ const LoginPage = () => {
       postRegister();
     }
     setLoginLoading(true);
-    console.log("Form submitted", { username, phone, email, password, passwordCheck });
   };
 
   const toggleAuthMode = () => {
@@ -129,8 +128,11 @@ const LoginPage = () => {
         password,
       });
 
+      console.log(response);
+
       if (response.data.accessToken) {
         localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
         setIsLoggedIn(true);
         navigate.push("/");
       } else {
