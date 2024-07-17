@@ -1,17 +1,18 @@
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import NavBar from "../../Components/NavBar";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 
 import { CiImageOn } from "react-icons/ci";
 import { useRecoilState } from "recoil";
 import userState from "@/app/Store/userState";
+import Image from "next/image";
+import axios from "axios";
 
-const CommunityPostPage = () => {
+const CoummunityWritePage = () => {
   // 상태 관리
   const [author, setAuthor] = useState("");
   const [postTitle, setPostTitle] = useState("");
@@ -27,8 +28,8 @@ const CommunityPostPage = () => {
   const [success, setSuccess] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  // const searchParams = useSearchParams();
+  // const id = searchParams.get("id");
   const [isEdit, setIsEdit] = useState(false);
 
   const navigate = useRouter();
@@ -37,17 +38,6 @@ const CommunityPostPage = () => {
 
   // 전역 상태 관리
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(userState);
-
-  // Effect
-  useEffect(() => {
-    if (isLoggedIn !== undefined) {
-      if (isLoggedIn) {
-      } else {
-        alert("로그인한 사용자만 글을 쓸 수 있습니다. 로그인해주세요.");
-        navigate.push("/");
-      }
-    }
-  }, [navigate, isLoggedIn]);
 
   const validateForm = () => {
     if (!postTitle.trim()) {
@@ -66,9 +56,9 @@ const CommunityPostPage = () => {
   };
 
   const handleSave = async () => {
-    if (!author) {
+    if (!isLoggedIn) {
       alert("로그인이 필요한 서비스입니다.");
-      navigate("/login");
+      navigate.push("/login");
       return;
     }
     setError("");
@@ -98,7 +88,7 @@ const CommunityPostPage = () => {
           setSuccess("게시글 수정이 완료되었습니다.");
         }
       }
-      navigate("/community");
+      navigate.push("/community");
     } catch (error) {
       console.error("게시글 저장 중 오류 발생:", error);
       setError("게시글 저장 중 오류가 발생했습니다.");
@@ -122,11 +112,18 @@ const CommunityPostPage = () => {
   const server = "http://localhost:8080";
   const createPost = async () => {
     try {
-      const response = await axios.post(`${server}/board/create`, {
+      const accessToken = localStorage.getItem("accessToken");
+      const data = {
         title: postTitle,
         content: postContent,
-      });
+      };
 
+      const response = await axios.post(`${server}/board/create`, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(data);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -189,10 +186,20 @@ const CommunityPostPage = () => {
         <div className="mb-4">
           <div
             className="rounded-sm overflow-hidden w-full h-48 bg-gray-100 flex justify-center items-center cursor-pointer hover:bg-gray-200 border-dotted border-4"
-            onClick={() => inputRef.current?.click()}
+            onClick={() => {
+              if (inputRef.current) {
+                inputRef.current.click();
+              }
+            }}
           >
             {thumbnailUrl ? (
-              <img src={thumbnailUrl} alt="Thumbnail" className="object-cover w-full h-full" />
+              <Image
+                width={600}
+                height={600}
+                src={thumbnailUrl}
+                alt="Thumbnail"
+                className="object-cover w-full h-full"
+              />
             ) : (
               <div className="text-3xl flex flex-col justify-center items-center gap-3">
                 <CiImageOn />
@@ -212,7 +219,7 @@ const CommunityPostPage = () => {
         </div>
         <div className="mb-4">
           <ReactQuill
-            ref={editorRef}
+            forwardedRef={editorRef}
             theme="snow"
             modules={modules}
             value={postContent}
@@ -225,7 +232,7 @@ const CommunityPostPage = () => {
         <div className="flex justify-end gap-4">
           <button
             className="px-4 py-2 bg-gray-200 text-black rounded"
-            onClick={() => navigate("/community")}
+            onClick={() => navigate.push("/community")}
           >
             취소
           </button>
@@ -238,4 +245,4 @@ const CommunityPostPage = () => {
   );
 };
 
-export default CommunityPostPage;
+export default CoummunityWritePage;
