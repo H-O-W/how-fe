@@ -1,4 +1,13 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { FcLike } from "react-icons/fc";
 import { ThumbsUp, MessageCircle } from "lucide-react";
+
+const CommunityPreview = ({ post }) => {
+  const [title, setTitle] = useState(post.title);
+  const [date, setDate] = useState(post.date);
+  const [likes, setLikes] = useState(post.likes);
 
 const CommunityPreview = ({ title, content, author, date, likes, comments, navigate }) => {
   return (
