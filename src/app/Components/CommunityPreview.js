@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FcLike } from "react-icons/fc";
 import { ThumbsUp, MessageCircle } from "lucide-react";
+import DOMPurify from "dompurify";
 
 const CommunityPreview = ({ title, content, author, date, likes, comments, navigate }) => {
   return (
@@ -12,7 +13,10 @@ const CommunityPreview = ({ title, content, author, date, likes, comments, navig
     >
       <div className="p-4">
         <h2 className="text-xl font-semibold text-green-700 mb-2">{title}</h2>
-        <p className="text-gray-600 mb-2">{content}</p>
+        <p
+          className="text-gray-600 mb-2"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content.slice(0, 20)) }}
+        ></p>
         <div className="flex justify-between items-center text-sm text-gray-500">
           <div className="flex items-center space-x-4">
             <span>{author}</span>
