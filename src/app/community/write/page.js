@@ -118,7 +118,7 @@ const CoummunityWritePage = () => {
         content: postContent,
       };
 
-      const response = await axios.post(`${server}/board/create`, data, {
+      const response = await axios.post(`${server}/post/create`, data, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
