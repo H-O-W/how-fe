@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { FcLike } from "react-icons/fc";
-import Comment from "@/app/Components/Comment";
 
 const PostDetailViewPage = () => {
   const { postId } = useParams();
@@ -22,8 +21,7 @@ const PostDetailViewPage = () => {
 
   useEffect(() => {
     if (postId) {
-      // postId를 사용하여 실제 데이터를 불러오는 로직 추가
-      // 예: fetch(`/api/posts/${postId}`).then(...)
+
     }
   }, [postId]);
 
@@ -34,10 +32,7 @@ const PostDetailViewPage = () => {
 
   const handleAddComment = () => {
     if (comment.trim() !== "") {
-      setComments([
-        ...comments,
-        { id: comments.length + 1, comment, date: new Date().toISOString().split("T")[0] },
-      ]);
+      setComments([...comments, { id: comments.length + 1, comment, date: new Date().toISOString().split('T')[0] }]);
       setComment("");
     }
   };
@@ -57,27 +52,25 @@ const PostDetailViewPage = () => {
       </div>
       <div className="flex flex-col flex-grow items-center border border-gray-300 rounded-lg pt-8 pb-12 shadow-lg mt-8 w-full">
         <div className="mb-4 flex justify-center items-center w-full">
-          <label className="w-1/7 block text-lg mr-2" htmlFor="comment">
-            댓글
-          </label>
+          <label className="w-1/7 block text-lg mr-2" htmlFor="comment">댓글</label>
           <input
-            type="text"
-            id="comment"
-            className="px-3 py-2 w-5/6 border rounded-md focus:outline-none focus:border-blue-500"
-            placeholder="댓글을 입력하세요"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+              type="text"
+              id="comment"
+              className="px-3 py-2 w-5/6 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="댓글을 입력하세요"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
           />
-          <button
-            onClick={handleAddComment}
-            className="ml-2 bg-gray-400 text-white px-4 py-2 rounded-md text-lg"
-          >
+          <button onClick={handleAddComment} className="ml-2 bg-gray-400 text-white px-4 py-2 rounded-md text-lg">
             등록
           </button>
         </div>
         <div className="w-full mt-4 pl-12 pr-12">
           {comments.map((c) => (
-            <Comment key={c.id} comment={c} />
+            <div key={c.id} className="border-b border-gray-300 py-4">
+              <div className="font-bold">{c.id}</div>
+              <div>{c.comment}</div>
+            </div>
           ))}
         </div>
       </div>
