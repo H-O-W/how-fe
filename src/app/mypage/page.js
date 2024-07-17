@@ -1,11 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from 'axios';
+
 const MyPage = () => {
   const [username, setUsername] = useState("이름");
   const [phone, setPhone] = useState("전화번호");
   const [email, setEmail] = useState("이메일");
   const [profileImage, setProfileImage] = useState("https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn2.ppomppu.co.kr%2Fzboard%2Fdata3%2F2022%2F0509%2F20220509173224_d9N4ZGtBVR.jpeg&type=sc960_832");
+
+  async function getUser() {
+    try {
+      const response = await axios.get(`http://localhost:8080/member/info`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
+      });
+      
+      setUsername(response.data.name);
+      setPhone(response.data.phoneNumber);
+      setEmail(response.data.email);
+      console.log(response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response.status === 404) {
+        console.error('유저 정보 불러오기 실패:', error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);  // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때 한 번만 실행되도록 함
 
   return (
     <section className="bg-white h-screen flex justify-center items-center">

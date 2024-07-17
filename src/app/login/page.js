@@ -108,7 +108,7 @@ const LoginPage = () => {
         alert("회원가입이 완료되었습니다. 로그인해주세요.");
       }
     } catch (error) {
-      if (error.response.status === 403) {
+      if (error.response.status === 403 && error.response) {
         setIsLogin(true);
         setError("이미 가입된 회원입니다. 로그인해주세요.");
       } else {
