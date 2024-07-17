@@ -108,13 +108,8 @@ const LoginPage = () => {
         alert("회원가입이 완료되었습니다. 로그인해주세요.");
       }
     } catch (error) {
-      if (error.response.status === 403 && error.response) {
-        setIsLogin(true);
-        setError("이미 가입된 회원입니다. 로그인해주세요.");
-      } else {
-        setError("회원가입에 실패했습니다.");
-        console.error(error);
-      }
+      setError("회원가입에 실패했습니다.");
+      console.error(error);
     } finally {
       setLoginLoading(false);
     }
@@ -139,12 +134,8 @@ const LoginPage = () => {
         setError("로그인 실패");
       }
     } catch (error) {
-      if (error.response.status === 403) {
-        setError("잘못된 이메일 혹은 비밀번호입니다. 다시 시도해주세요.");
-      } else {
-        setError("로그인 실패");
-        console.error(error);
-      }
+      setError("로그인 실패");
+      console.error(error);
     } finally {
       setLoginLoading(false);
     }
