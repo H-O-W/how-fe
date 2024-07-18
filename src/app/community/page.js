@@ -78,7 +78,7 @@ const CommunityBoard = () => {
             author={post.writer}
             date={post.writeDate}
             likes={post.likes || 0}
-            comments={post.comments || 0}
+            comments={post.commentReadDTOS.length || 0}
             navigate={() => navigate.push(`/community/${post.boardId}`)}
           />
         ))}

@@ -16,17 +16,12 @@ const PostDetailViewPage = () => {
   const [date, setDate] = useState("2024.07.14. 13:03");
   const [likes, setLikes] = useState(0);
   const [authorProfileThumbnail, setAuthorProfileThumbnail] = useState("");
-  const [postLoading, setPostLoading] = useState(true)
+  const [$postLoading, setPostLoading] = useState(true)
 
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(false);
   const [comment, setComment] = useState("");
-  const [commentList, setCommentList] = useState([
-    { id: 1, comment: "댓글1", date: "2023-06-01" },
-    { id: 2, comment: "댓글2", date: "2023-06-02" },
-    { id: 3, comment: "댓글3", date: "2023-06-03" },
-    { id: 4, comment: "댓글4", date: "2023-06-04" },
-  ]);
+  const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
     if (postId) {
@@ -43,8 +38,9 @@ const PostDetailViewPage = () => {
         },
       });
       setPost(response.data);
+      setCommentList(response.data.commentReadDTOS);
       console.log(response);
-      setPostLoading(false)
+      setPostLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -70,7 +66,9 @@ const PostDetailViewPage = () => {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
       })
-      console.log('댓글 등록 결과', response)
+      console.log('댓글 등록 결과', response);
+      setComment(""); // 댓글 입력란 비우기
+      getPostDetail(postId);
     } catch (error) {
       console.error(error);
       
@@ -79,7 +77,7 @@ const PostDetailViewPage = () => {
 
   return (
     <section className="container mx-auto p-4 max-w-5xl mt-24">
-      {postLoading ? <div>Loading...</div> : <div className="bg-white border border-gray-200 rounded-lg shadow-md">
+      {$postLoading ? <div>Loading...</div> : <div className="bg-white border border-gray-200 rounded-lg shadow-md">
         <div className="p-5">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
@@ -150,8 +148,8 @@ const PostDetailViewPage = () => {
             </button>
           </div>
           <div className="space-y-4">
-            {commentList.map((c) => (
-              <Comment key={c.id} comment={c} />
+            {commentList.map((c, idx) => (
+              <Comment key={idx} comment={c} />
             ))}
           </div>
         </div>
