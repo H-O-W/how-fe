@@ -22,12 +22,7 @@ const PostDetailViewPage = () => {
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(false);
   const [comment, setComment] = useState("");
-  const [commentList, setCommentList] = useState([
-    { id: 1, comment: "댓글1", date: "2023-06-01" },
-    { id: 2, comment: "댓글2", date: "2023-06-02" },
-    { id: 3, comment: "댓글3", date: "2023-06-03" },
-    { id: 4, comment: "댓글4", date: "2023-06-04" },
-  ]);
+  const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
     if (postId) {
@@ -44,13 +39,43 @@ const PostDetailViewPage = () => {
         },
       });
       setPost(response.data);
+      setCommentList(response.data.commentReadDTOS);
       console.log(response);
       setPostLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
+  const onDeleteContent = async (commentId) => {
+    try {
+      await axios.delete(`http://localhost:8080/comment/${post.boardId}/delete/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      getPostDetail(postId);
 
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  }
+  
+  const onEditContent = async (commentId, editValue) => {
+    try {
+      await axios.put(`http://localhost:8080/comment/update/${commentId}`, {
+        content:editValue
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      getPostDetail(postId);
+
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  }
+  
   const toggleLike = () => {
     setLiked(!liked);
     setLikes(likes + (liked ? -1 : 1));
@@ -74,8 +99,11 @@ const PostDetailViewPage = () => {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
-      );
-      console.log("댓글 등록 결과", response);
+      })
+      console.log('댓글 등록 결과', response);
+      setComment(""); // 댓글 입력란 비우기
+      getPostDetail(postId);
+
     } catch (error) {
       console.error(error);
     }
@@ -161,7 +189,7 @@ const PostDetailViewPage = () => {
             </div>
             <div className="space-y-4">
               {commentList.map((c) => (
-                <Comment key={c.id} comment={c} />
+                <Comment key={c.id} comment={c} onDeleteContent={onDeleteContent} onEditContent={onEditContent}/>
               ))}
             </div>
           </div>
