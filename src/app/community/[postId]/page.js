@@ -16,7 +16,7 @@ const PostDetailViewPage = () => {
   const [date, setDate] = useState("2024.07.14. 13:03");
   const [likes, setLikes] = useState(0);
   const [authorProfileThumbnail, setAuthorProfileThumbnail] = useState("");
-  const [$postLoading, setPostLoading] = useState(true)
+  const [postLoading, setPostLoading] = useState(true)
 
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(false);
@@ -45,7 +45,36 @@ const PostDetailViewPage = () => {
       console.error(error);
     }
   };
+  const onDeleteContent = async (commentId) => {
+    try {
+      await axios.delete(`http://localhost:8080/comment/${post.boardId}/delete/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      getPostDetail(postId);
 
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  }
+  
+  const onEditContent = async (commentId, editValue) => {
+    try {
+      await axios.put(`http://localhost:8080/comment/update/${commentId}`, {
+        content:editValue
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      getPostDetail(postId);
+
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  }
+  
   const toggleLike = () => {
     setLiked(!liked);
     setLikes(likes + (liked ? -1 : 1));
@@ -77,7 +106,7 @@ const PostDetailViewPage = () => {
 
   return (
     <section className="container mx-auto p-4 max-w-5xl mt-24">
-      {$postLoading ? <div>Loading...</div> : <div className="bg-white border border-gray-200 rounded-lg shadow-md">
+      {postLoading ? <div>Loading...</div> : <div className="bg-white border border-gray-200 rounded-lg shadow-md">
         <div className="p-5">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
@@ -148,8 +177,8 @@ const PostDetailViewPage = () => {
             </button>
           </div>
           <div className="space-y-4">
-            {commentList.map((c, idx) => (
-              <Comment key={idx} comment={c} />
+            {commentList.map((c) => (
+              <Comment key={c.id} comment={c} onDeleteContent={onDeleteContent} onEditContent={onEditContent}/>
             ))}
           </div>
         </div>
