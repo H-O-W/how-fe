@@ -56,6 +56,23 @@ const RoadMapPage = () => {
     }
   }, [step]);
 
+  // 예시 데이터
+  const ex = {
+    detailId: "1",
+    age: 30,
+    bothHands: "BOTH_HANDS",
+    eyesight: "NORMAL_ACTIVITY",
+    handwork: "PRECISION_WORK",
+    liftPower: "UNDER_5KG",
+    lstnTalk: "NO_DIFFICULTY",
+    stndWalk: "SOME_STANDING",
+    jobNm: "서비스",
+    career: "5년",
+    educ: "대졸",
+    location: "인천",
+    licenses: ["자격증1", "자격증2"],
+  };
+
   return (
     <section className="bg-white h-screen flex flex-col items-center pretendard pt-32">
       {existRoadmap ? (
@@ -63,7 +80,7 @@ const RoadMapPage = () => {
       ) : (
         <div className="min-w-96 ">
           {/* 현재 단계 */}
-          <h3 className="text-2xl font-semibold">나만의 로드맵 생성 진행도</h3>
+          <h3 className="text-2xl font-semibold">나만을 위한 직업추천 생성 진행도</h3>
           <div className="p-3 w-full mt-3 mb-6">
             <div className="progress relative h-1 bg-white">
               <div
@@ -123,7 +140,7 @@ const RoadMapPage = () => {
           </div>
           <div>
             <div className="text-xl">{step}단계:</div>
-            {step < 5 && <div className="">로드맵을 생성하기 위해서는 아래 정보가 필요해요!</div>}
+            {step < 5 && <div className="">직업추천을 생성하기 위해서는 아래 정보가 필요해요!</div>}
           </div>
           {step === 1 && <Step1 onNext={nextStep} />}
           {step === 2 && <Step2 onNext={nextStep} onPrev={prevStep} />}
@@ -134,7 +151,7 @@ const RoadMapPage = () => {
               <p className="w-full text-left">입력해주신 정보들로 로드맵을 생성하는 중이에요!</p>
               <div className="w-2/3 aspect-square flex flex-col items-center justify-center gap-3  opacity-60">
                 <FaSpinner className="text-3xl animate-spin" />
-                <div>로드맵 생성 중...</div>
+                <div>직업추천 생성 중...</div>
               </div>
             </div>
           )}
