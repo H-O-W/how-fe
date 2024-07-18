@@ -99,7 +99,7 @@ const PostDetailViewPage = () => {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
-      })
+      )
       console.log('댓글 등록 결과', response);
       setComment(""); // 댓글 입력란 비우기
       getPostDetail(postId);
