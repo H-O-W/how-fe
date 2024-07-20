@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -12,7 +12,7 @@ import userState from "@/app/Store/userState";
 import Image from "next/image";
 import axios from "axios";
 
-const CoummunityWritePage = () => {
+const CoummunityWritePage = ({ searchParams }) => {
   // 상태 관리
   const [author, setAuthor] = useState("");
   const [postTitle, setPostTitle] = useState("");
@@ -28,16 +28,40 @@ const CoummunityWritePage = () => {
   const [success, setSuccess] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  // const searchParams = useSearchParams();
-  // const id = searchParams.get("id");
-  const [isEdit, setIsEdit] = useState(false);
 
+  const [isEdit, setIsEdit] = useState(false);
   const navigate = useRouter();
   const inputRef = useRef(null);
   const editorRef = useRef(null);
 
   // 전역 상태 관리
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(userState);
+
+  // Effect
+  useEffect(() => {
+    const id = searchParams["id"];
+    if (id) {
+      setIsEdit(true);
+      getPostDetail(id);
+    }
+  }, [searchParams]);
+
+  const getPostDetail = async (postId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/board/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setPostTitle(response.data.title);
+      setPostContent(response.data.content);
+      console.log(response);
+    } catch (error) {
+      console.error("글 조회실패", error);
+      setPostTitle("");
+      setPostContent("");
+    }
+  };
 
   const validateForm = () => {
     if (!postTitle.trim()) {
@@ -84,9 +108,9 @@ const CoummunityWritePage = () => {
         createPost();
         setSuccess("게시글 작성이 완료되었습니다.");
       } else {
-        if (id) {
-          setSuccess("게시글 수정이 완료되었습니다.");
-        }
+        const id = searchParams.get("id");
+        updatePost(id);
+        setSuccess("게시글 수정이 완료되었습니다.");
       }
       navigate.push("/community");
     } catch (error) {
@@ -127,6 +151,28 @@ const CoummunityWritePage = () => {
       console.log(response);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  // 글 수정
+  const updatePost = async (id) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.put(
+        `${server}/post/update/${id}`,
+        {
+          title: postTitle,
+          content: postContent,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (e) {
+      console.error(e);
     }
   };
 
