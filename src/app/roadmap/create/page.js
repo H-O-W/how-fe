@@ -28,31 +28,67 @@ const RoadMapPage = () => {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  const handleSubmit = async () => {
+  const createMemberDetailForm = async (step1Data, step2Data, step3Data, step4Data) => {
     try {
-      // 로드맵 생성 API 호출
-      const response = await axios.post("http://localhost:8080/userDetail", {
-        ...step1Data,
-        ...step2Data,
-        ...step3Data,
-        ...step4Data,
+      // MemberDetailFormDTO에 맞게 데이터 구조화
+      const memberDetailForm = {
+        age: parseInt(step1Data.age),
+        bothHands: step2Data.bothHands.value,
+        eyesight: step2Data.eyesight.value,
+        handwork: step2Data.handwork.value,
+        liftPower: step3Data.liftPower,
+        lstnTalk: step3Data.lstnTalk,
+        stndWalk: step3Data.stndWalk,
+        jobNm: step1Data.preferredJob,
+        career: step4Data.career,
+        education: step1Data.education,
+        location: step1Data.region,
+        licenses: step4Data.licenses,
+      };
+
+      console.table(memberDetailForm);
+
+      // API 호출
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.post("http://localhost:8080/memberDetail", memberDetailForm, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
 
-      console.log(response);
+      console.log("API 응답:", response);
+      return response.data;
     } catch (error) {
-      console.error(error);
+      console.error("API 호출 중 오류 발생:", error);
+      throw error;
+    }
+  };
+
+  // 사용 예시
+  const handleSubmit = async () => {
+    try {
+      const result = await createMemberDetailForm(step1Data, step2Data, step3Data, step4Data);
+      // 결과 처리
+      // setExistRoadmap(true); // 로드맵이 생성되었다고 가정
+      console.log(result);
+    } catch (error) {
+      // 오류 처리
+      console.error("로드맵 생성 중 오류:", error);
     }
   };
 
   useEffect(() => {
     if (step === 5) {
-      console.table({
-        step1Data,
-        step2Data,
-        step3Data,
-        step4Data,
-      });
-      handleSubmit();
+      if (step1Data && step2Data && step3Data && step4Data) {
+        console.table(step1Data);
+        console.table(step2Data);
+        console.table(step3Data);
+        console.table(step4Data);
+        handleSubmit();
+      } else {
+        console.error("직업추천을 위한 데이터가 부족합니다.");
+        setStep(1);
+      }
     }
   }, [step]);
 
@@ -78,7 +114,7 @@ const RoadMapPage = () => {
       {existRoadmap ? (
         <div></div>
       ) : (
-        <div className="min-w-96 ">
+        <div className="min-w-96 w-96">
           {/* 현재 단계 */}
           <h3 className="text-2xl font-semibold">나만을 위한 직업추천 생성 진행도</h3>
           <div className="p-3 w-full mt-3 mb-6">

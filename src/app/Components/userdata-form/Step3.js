@@ -4,63 +4,39 @@ import Select from "react-select";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 const Step3 = ({ onNext, onPrev }) => {
-  const [selectedRegion, setSelectedRegion] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(null);
-  const [commuteDistance, setCommuteDistance] = useState("");
-  const [selectedRemotePreference, setSelectedRemotePreference] = useState(null);
+  const [liftPower, setLiftPower] = useState(null);
+  const [lstnTalk, setLstnTalk] = useState(null);
+  const [stndWalk, setStndWalk] = useState(null);
+
   const [step3Data, setStep3Data] = useRecoilState(step3State);
   const setCurrentStep = useSetRecoilState(currentStepState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 폼 데이터 처리
     setStep3Data({
-      region: selectedRegion?.value,
-      job: selectedJob?.value,
-      commuteDistance,
-      remotePreference: selectedRemotePreference?.value,
+      liftPower: liftPower?.value,
+      lstnTalk: lstnTalk?.value,
+      stndWalk: stndWalk?.value,
     });
     setCurrentStep(4); // 다음 단계로 이동
   };
 
-  const regionOptions = [
-    { value: "seoul", label: "서울" },
-    { value: "gyeonggi", label: "경기" },
-    { value: "incheon", label: "인천" },
-    { value: "busan", label: "부산" },
-    { value: "daegu", label: "대구" },
-    { value: "gwangju", label: "광주" },
-    { value: "daejeon", label: "대전" },
-    { value: "ulsan", label: "울산" },
-    { value: "sejong", label: "세종" },
-    { value: "gangwon", label: "강원" },
-    { value: "chungbuk", label: "충북" },
-    { value: "chungnam", label: "충남" },
-    { value: "jeonbuk", label: "전북" },
-    { value: "jeonnam", label: "전남" },
-    { value: "gyeongbuk", label: "경북" },
-    { value: "gyeongnam", label: "경남" },
-    { value: "jeju", label: "제주" },
+  const liftPowerOptions = [
+    { value: "UNDER_5KG", label: "5Kg 이내의 물건을 다룰 수 있음" },
+    { value: "FROM_5KG_TO_20KG", label: "5~20Kg의 물건을 다룰 수 있음" },
+    { value: "ABOVE_20KG", label: "20Kg 이상의 물건을 다룰 수 있음" },
   ];
 
-  const jobOptions = [
-    { value: "office", label: "사무직" },
-    { value: "it", label: "IT/개발" },
-    { value: "service", label: "서비스업" },
-    { value: "manufacture", label: "제조업" },
-    { value: "education", label: "교육" },
-    { value: "healthcare", label: "의료/복지" },
-    { value: "finance", label: "금융/보험" },
-    { value: "sales", label: "영업/판매" },
-    { value: "media", label: "미디어/콘텐츠" },
-    { value: "design", label: "디자인" },
+  const lstnTalkOptions = [
+    { value: "NO_DIFFICULTY", label: "듣고 말하기에 어려움 없음" },
+    { value: "SIMPLE_CONVERSATION", label: "간단한 듣고 말하기 가능" },
+    { value: "DIFFICULTY", label: "듣고 말하는 작업 어려움" },
   ];
 
-  const remotePreferenceOptions = [
-    { value: "full-remote", label: "전면 재택" },
-    { value: "partial-remote", label: "부분 재택" },
-    { value: "office-based", label: "사무실 근무 선호" },
-    { value: "flexible", label: "유연함" },
+  const stndWalkOptions = [
+    { value: "LONG_STANDING", label: "오랫동안 서거나 걷기 가능" },
+    { value: "SOME_STANDING", label: "일부 서서하는 작업 가능" },
+    { value: "DIFFICULTY", label: "서거나 걷는 일 어려움" },
   ];
 
   const customStyles = {
@@ -84,48 +60,49 @@ const Step3 = ({ onNext, onPrev }) => {
   return (
     <form onSubmit={handleSubmit} className="user-detail-form max-w-xl mx-auto mt-8">
       <div className="mb-4">
-        <label htmlFor="region-select" className="block mb-2 font-bold text-gray-700">
-          희망 지역
+        <label htmlFor="liftPower-select" className="block mb-2 font-bold text-gray-700">
+          작업환경_드는힘
         </label>
         <Select
-          id="region-select"
-          instanceId="region-select"
-          options={regionOptions}
-          value={selectedRegion}
-          onChange={setSelectedRegion}
-          placeholder="희망 지역을 선택하세요"
+          id="liftPower-select"
+          instanceId="liftPower-select"
+          options={liftPowerOptions}
+          value={liftPower}
+          onChange={setLiftPower}
+          placeholder="드는 힘을 선택하세요"
           styles={customStyles}
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="job-select" className="block mb-2 font-bold text-gray-700">
-          희망 직종
+        <label htmlFor="lstnTalk-select" className="block mb-2 font-bold text-gray-700">
+          작업환경_듣고 말하기
         </label>
         <Select
-          id="job-select"
-          instanceId="job-select"
-          options={jobOptions}
-          value={selectedJob}
-          onChange={setSelectedJob}
-          placeholder="희망 직종을 선택하세요"
+          id="lstnTalk-select"
+          instanceId="lstnTalk-select"
+          options={lstnTalkOptions}
+          value={lstnTalk}
+          onChange={setLstnTalk}
+          placeholder="듣고 말하기 능력을 선택하세요"
           styles={customStyles}
         />
       </div>
 
-      {/* <div className="mb-4">
-        <label htmlFor="commute-distance" className="block mb-2 font-bold text-gray-700">
-          통근 가능 거리 (km)
+      <div className="mb-4">
+        <label htmlFor="stndWalk-select" className="block mb-2 font-bold text-gray-700">
+          작업환경_서거나 걷기
         </label>
-        <input
-          id="commute-distance"
-          type="number"
-          value={commuteDistance}
-          onChange={(e) => setCommuteDistance(e.target.value)}
-          placeholder="통근 가능 거리를 입력하세요"
-          className="w-full border px-2 py-2 rounded customStyle"
+        <Select
+          id="stndWalk-select"
+          instanceId="stndWalk-select"
+          options={stndWalkOptions}
+          value={stndWalk}
+          onChange={setStndWalk}
+          placeholder="서거나 걷기 능력을 선택하세요"
+          styles={customStyles}
         />
-      </div> */}
+      </div>
 
       <div className="flex justify-between">
         <button
