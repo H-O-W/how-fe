@@ -27,21 +27,26 @@ const CommunityBoard = () => {
       console.log("글 불러오기 결과", response);
     } catch (error) {
       if (error.response.status === 403) refreshAccessToken();
-
-      console.error(error);
+      else {
+        console.error(error);
+      }
     }
   };
 
   const refreshAccessToken = async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-    if (refreshToken) {
-      const response = await axios.post("http://localhost:8080/member/reissue", {
-        headers: {
-          Authorization: "Bearer " + refreshToken,
-        },
-      });
+    try {
+      const refreshToken = localStorage.getItem("refreshToken");
+      const accessToken = localStorage.getItem("accessToken");
+      if (refreshToken) {
+        const response = await axios.post("http://localhost:8080/member/reissue", {
+          accessToken,
+          refreshToken,
+        });
 
-      console.log("리프레시토큰 발급", response);
+        console.log("리프레시토큰 발급", response);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
