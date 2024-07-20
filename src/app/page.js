@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <motion.section initial="initial" animate="animate" className="min-h-screen flex flex-col">
       <motion.div
-        className="bg-gradient-to-r from-green-400 to-blue-500 text-white py-20 px-4 sm:px-6 lg:px-8"
+        className="bg-gradient-to-l from-green-400 to-emerald-700 text-white py-20 px-4 sm:px-6 lg:px-8"
         variants={fadeInUp}
       >
         <div className="max-w-7xl mx-auto">
@@ -52,7 +52,7 @@ export default function Home() {
           <motion.div variants={fadeInUp}>
             <MotionLink
               href="/roadmap"
-              className="inline-block px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors"
+              className="inline-block px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
