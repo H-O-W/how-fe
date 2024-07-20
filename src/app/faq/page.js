@@ -45,18 +45,26 @@ const CustomerService = () => {
         <h2 className="text-3xl font-extrabold">자주 묻는 질문</h2>
         <div className="mt-5 mb-6 flex gap-2 text-xl font-semibold cursor-pointer">
           <span className="text-emerald-500 hover:text-emerald-500">전체</span>
-          <span className="text-gray-500 hover:text-emerald-500">로드맵</span>
-          <span className="text-gray-500 hover:text-emerald-500">관리</span>
+          {/* <span className="text-gray-500 hover:text-emerald-500">로드맵</span>
+          <span className="text-gray-500 hover:text-emerald-500">관리</span> */}
         </div>
         <div className="mt-6 border-t">
           <QuestionBox
-            question={"로드맵이 생성이 안돼요!"}
+            question={"기업 추천 생성이 안돼요!"}
             answer={
-              "로드맵을 생성하기 위해서는 정확한 정보가 필요합니다. 모든 정보가 올바르게 입력되었는지 다시 한번 확인해주세요. 만약 같은 문제가 계속될 경우에는 고객센터로 문의를 부탁드립니다."
+              "직업추천을 생성하기 위해서는 정확한 정보가 필요합니다. 모든 정보가 올바르게 입력되었는지 다시 한번 확인해주세요. 만약 같은 문제가 계속될 경우에는 고객센터로 문의를 부탁드립니다."
             }
           />
-          <QuestionBox question={"경력이 없어도 가능한가요?"} answer={"Why are you running!!"} />
-          <QuestionBox question={"Why are you running?"} answer={"Why are you running!!"} />
+          <QuestionBox
+            question={"경력이 없어도 가능한가요?"}
+            answer={"네, 경력이 없어도 기업추천을 생성하실 수 있습니다."}
+          />
+          <QuestionBox
+            question={"커뮤니티는 어떻게 사용하나요?"}
+            answer={
+              "회원가입 후 로그인을 하면 커뮤니티에서 글을 작성하고 댓글을 작성할 수 있습니다."
+            }
+          />
           <div></div>
         </div>
       </div>

@@ -46,8 +46,8 @@ export default function Home() {
           >
             HOW
           </motion.h1>
-          <motion.p className="text-xl sm:text-2xl md:text-3xl mb-8" variants={fadeInUp}>
-            장애인을 위한 나만의 취업 로드맵 시작하기
+          <motion.p className="text-lg sm:text-xl md:text-2xl mb-8" variants={fadeInUp}>
+            장애인을 위한 나만의 기업 추천, 하우와 함께
           </motion.p>
           <motion.div variants={fadeInUp}>
             <MotionLink

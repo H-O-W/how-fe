@@ -48,7 +48,16 @@ const CustomerService = () => {
           <span className="text-gray-500 hover:text-red-500">학습데이터</span>
         </div>
         <div className="mt-6 border-t">
-          <NoticeBox title={"1차 학습데이터 고지"} />
+          <NoticeBox
+            title={"1차 학습데이터 고지"}
+            content={`학습에 사용된 데이터
+    1. 한국장애인고용공단 직업훈련 정보
+    2. 한국고용정보원_일자리정책_관리목록
+    3. 한국장애인고용공 장애 구인 실시간 현황
+    4. 한국장애인고용공단 장애인 표준사업장
+    5. 사람인 채용 공고 api
+    6. 워크넷 채용 공고 api`}
+          />
         </div>
       </div>
     </div>

@@ -124,7 +124,7 @@ const Roadmap = () => {
             나의 맞춤 추천 기업{" "}
             <Link
               href={"/roadmap/create"}
-              className="absolute right-20 rounded-md px-2 py-1 text-lg bg-blue-300 text-white"
+              className="absolute right-20 rounded-md px-2 py-1 text-lg bg-blue-700 hover:bg-blue-500 text-white"
             >
               다시 만들기
             </Link>
