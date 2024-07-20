@@ -108,7 +108,7 @@ const CoummunityWritePage = ({ searchParams }) => {
         createPost();
         setSuccess("게시글 작성이 완료되었습니다.");
       } else {
-        const id = searchParams.get("id");
+        const id = searchParams["id"];
         updatePost(id);
         setSuccess("게시글 수정이 완료되었습니다.");
       }

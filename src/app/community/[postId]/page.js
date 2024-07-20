@@ -125,7 +125,7 @@ const PostDetailViewPage = () => {
         },
       });
       console.log(response);
-      navigate.push("/");
+      navigate.push("/community");
     } catch (e) {
       console.error(e);
     }
