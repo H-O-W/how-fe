@@ -21,7 +21,7 @@ const CommunityBoard = () => {
     debounce(async (term) => {
       try {
         const encodedSearchTerm = encodeURIComponent(term);
-        let apiQuery = "http://localhost:8080/board/list";
+        let apiQuery = `${process.env.NEXT_PUBLIC_API_URL}/board/list`;
         if (term) {
           apiQuery += `?keyword=${encodedSearchTerm}`;
         }
@@ -47,7 +47,7 @@ const CommunityBoard = () => {
       const refreshToken = localStorage.getItem("refreshToken");
       const accessToken = localStorage.getItem("accessToken");
       if (refreshToken) {
-        const response = await axios.post("http://localhost:8080/member/reissue", {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/member/reissue`, {
           accessToken,
           refreshToken,
         });

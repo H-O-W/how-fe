@@ -13,6 +13,9 @@ const nextConfig = {
   removeConsole: {
     exclude: ["error", "warn"],
   },
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
 };
 
 export default nextConfig;

@@ -96,7 +96,7 @@ const LoginPage = () => {
   // HTTP Methods
   const postRegister = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/member/signup", {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/member/signup`, {
         email,
         name: username,
         phoneNumber: phone,
@@ -118,7 +118,7 @@ const LoginPage = () => {
   const postLogin = async () => {
     try {
       setError("");
-      const response = await axios.post("http://localhost:8080/member/login", {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/member/login`, {
         email,
         password,
       });

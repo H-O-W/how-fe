@@ -51,11 +51,15 @@ const RoadMapPage = () => {
 
       // API 호출
       const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.post("http://localhost:8080/memberDetail", memberDetailForm, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/memberDetail`,
+        memberDetailForm,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       console.log("유저디테일 응답:", response);
       return response.data;
@@ -69,7 +73,7 @@ const RoadMapPage = () => {
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) alert("로그인이 필요한 기능입니다!");
       const response = await axios.post(
-        "http://localhost:8080/recommendJobs/save",
+        `${process.env.NEXT_PUBLIC_API_URL}/recommendJobs/save`,
         {},
         {
           headers: {

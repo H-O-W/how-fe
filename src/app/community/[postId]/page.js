@@ -119,7 +119,7 @@ const PostDetailViewPage = () => {
   const deletePost = async (id) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.delete(`http://localhost:8080/post/delete/${id}`, {
+      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/post/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -46,7 +46,7 @@ const Roadmap = () => {
   const getRoadmap = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.get("http://localhost:8080/recommendJobs/get", {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/recommendJobs/get`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

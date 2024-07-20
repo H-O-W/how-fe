@@ -19,7 +19,7 @@ const MyPage = () => {
 
   async function getUser() {
     try {
-      const response = await axios.get(`http://localhost:8080/member/info`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/member/info`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
 
