@@ -12,7 +12,7 @@ import userState from "@/app/Store/userState";
 import Image from "next/image";
 import axios from "axios";
 
-const CoummunityWritePage = () => {
+const CoummunityWritePage = ({ searchParams }) => {
   // 상태 관리
   const [author, setAuthor] = useState("");
   const [postTitle, setPostTitle] = useState("");
@@ -30,8 +30,6 @@ const CoummunityWritePage = () => {
   const [progress, setProgress] = useState(0);
 
   const [isEdit, setIsEdit] = useState(false);
-
-  const searchParams = useSearchParams();
   const navigate = useRouter();
   const inputRef = useRef(null);
   const editorRef = useRef(null);
@@ -41,7 +39,7 @@ const CoummunityWritePage = () => {
 
   // Effect
   useEffect(() => {
-    const id = searchParams.get("id");
+    const id = searchParams["id"];
     if (id) {
       setIsEdit(true);
       getPostDetail(id);
