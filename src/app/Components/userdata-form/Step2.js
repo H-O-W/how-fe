@@ -1,25 +1,26 @@
 import { currentStepState, step2State } from "@/app/Store/roadmapFormState";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 const Step2 = ({ onNext, onPrev }) => {
-  const [selectedEducation, setSelectedEducation] = useState(null);
-  const [licenses, setLicenses] = useState([]);
-  const [licenseInput, setLicenseInput] = useState("");
-  const [experience, setExperience] = useState("");
+  const [bothHands, setBothHands] = useState(null);
+  const [eyesight, setEyesight] = useState(null);
+  const [handwork, setHandwork] = useState(null);
 
-  const licenseAddBtnRef = useRef(null);
   const [step2Data, setStep2Data] = useRecoilState(step2State);
   const setCurrentStep = useSetRecoilState(currentStepState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 폼 데이터 처리
-    setStep2Data({ education: selectedEducation, licenses, experience });
-    setCurrentStep(3); // 다음 단계로 이동
+    setStep2Data({
+      bothHands,
+      eyesight,
+      handwork,
+    });
+    setCurrentStep(3);
   };
-  // react-select 커스텀 스타일
+
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -38,105 +39,70 @@ const Step2 = ({ onNext, onPrev }) => {
     }),
   };
 
-  const handleLicenseChange = (e) => {
-    if (e.key === "Enter" || e.key === ",") {
-      e.preventDefault();
-      addLicense();
-    }
-  };
+  const bothHandsOptions = [
+    { value: "BOTH_HANDS", label: "양손작업 가능" },
+    { value: "ONE_HANDS_ASSIST", label: "한손보조작업 가능" },
+  ];
 
-  const addLicense = () => {
-    if (licenseInput.trim() && !licenses.includes(licenseInput.trim())) {
-      setLicenses([...licenses, licenseInput.trim()]);
-      setLicenseInput("");
-    }
-  };
+  const eyesightOptions = [
+    { value: "NORMAL_ACTIVITY", label: "일상적 활동 가능" },
+    { value: "LARGE_PRINT", label: "비교적 큰 인쇄물을 읽을 수 있음" },
+    { value: "SMALL_PRINT", label: "아주 작은 글씨를 읽을 수 있음" },
+  ];
 
-  const removeLicense = (license) => {
-    setLicenses(licenses.filter((l) => l !== license));
-  };
-
-  const educations = [
-    { value: "elementary", label: "초등학교 졸업" },
-    { value: "middle", label: "중학교 졸업" },
-    { value: "high", label: "고등학교 졸업" },
-    { value: "college", label: "전문대학 졸업" },
-    { value: "university", label: "대학교 졸업" },
-    { value: "master", label: "석사 학위" },
-    { value: "doctor", label: "박사 학위" },
+  const handworkOptions = [
+    { value: "PRECISION_WORK", label: "정밀한 작업가능" },
+    { value: "SMALL_ASSEMBLY", label: "작은 물품 조립가능" },
+    { value: "LARGE_ASSEMBLY", label: "큰 물품 조립가능" },
   ];
 
   return (
     <form onSubmit={handleSubmit} className="max-w-xl mx-auto mt-8 user-detail-form">
       <div className="mb-4">
-        <label htmlFor="education-select" className="block mb-2 font-bold text-gray-700">
-          최종 학력
+        <label htmlFor="bothHands-select" className="block mb-2 font-bold text-gray-700">
+          작업환경_양손사용
         </label>
         <Select
-          id="education-select"
-          instanceId="education-select"
-          options={educations}
-          value={selectedEducation}
-          onChange={setSelectedEducation}
-          placeholder="최종 학력을 선택하세요"
+          id="bothHands-select"
+          instanceId="bothHands-select"
+          options={bothHandsOptions}
+          value={bothHands}
+          onChange={setBothHands}
+          placeholder="양손 사용 능력을 선택하세요"
           className="w-full"
-          customStyles={customStyles}
+          styles={customStyles}
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="license" className="block mb-2 font-bold text-gray-700">
-          자격증
+        <label htmlFor="eyesight-select" className="block mb-2 font-bold text-gray-700">
+          작업환경_시력
         </label>
-        <div className="flex flex-wrap gap-2 mb-2">
-          {licenses.map((license, index) => (
-            <span
-              key={index}
-              className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm flex items-center"
-            >
-              {license}
-              <button
-                type="button"
-                onClick={() => removeLicense(license)}
-                className="ml-2 text-blue-800 hover:text-blue-900 focus:outline-none"
-              >
-                ×
-              </button>
-            </span>
-          ))}
-        </div>
-        <div className="flex customStyle">
-          <input
-            id="license"
-            type="text"
-            value={licenseInput}
-            onChange={(e) => setLicenseInput(e.target.value)}
-            onKeyDown={handleLicenseChange}
-            placeholder="자격증을 입력하세요"
-            className="flex-grow border px-2 py-2 rounded-l customStyle"
-          />
-          <button
-            type="button"
-            onClick={addLicense}
-            ref={licenseAddBtnRef}
-            className="bg-blue-500 text-white -ml-2 px-4 py-2 rounded-r hover:bg-blue-600 addBtn"
-          >
-            추가
-          </button>
-        </div>
+        <Select
+          id="eyesight-select"
+          instanceId="eyesight-select"
+          options={eyesightOptions}
+          value={eyesight}
+          onChange={setEyesight}
+          placeholder="시력 상태를 선택하세요"
+          className="w-full"
+          styles={customStyles}
+        />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="experience" className="block mb-2 font-bold text-gray-700">
-          경력 사항
+        <label htmlFor="handwork-select" className="block mb-2 font-bold text-gray-700">
+          작업환경_손작업
         </label>
-        <textarea
-          id="experience"
-          value={experience}
-          onChange={(e) => setExperience(e.target.value)}
-          placeholder="경력 사항을 입력하세요 (없으면 '신입'이라고 적어주세요)"
-          className="w-full border px-2 py-2 rounded h-32"
-          required
+        <Select
+          id="handwork-select"
+          instanceId="handwork-select"
+          options={handworkOptions}
+          value={handwork}
+          onChange={setHandwork}
+          placeholder="손작업 능력을 선택하세요"
+          className="w-full"
+          styles={customStyles}
         />
       </div>
 
