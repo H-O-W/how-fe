@@ -52,7 +52,7 @@ export default function Home() {
           <motion.div variants={fadeInUp}>
             <MotionLink
               href="/roadmap"
-              className="inline-block px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 transition-colors"
+              className="inline-block px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-500 hover:bg-blue-700 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -114,7 +114,7 @@ export default function Home() {
                 <p className="mb-4">아직 로드맵이 만들어지지 않은 상태에요</p>
                 <MotionLink
                   href="/roadmap"
-                  className="inline-block px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                  className="inline-block px-6 py-3 bg-emerald-500 text-white rounded-md hover:bg-green-600 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
