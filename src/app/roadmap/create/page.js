@@ -16,6 +16,7 @@ import {
 } from "../../Store/roadmapFormState";
 import { FaSpinner } from "react-icons/fa";
 import axios from "axios";
+import { FaCheckCircle } from "react-icons/fa";
 
 const RoadMapPage = () => {
   const [existRoadmap, setExistRoadmap] = useRecoilState(roadmapState);
@@ -56,10 +57,10 @@ const RoadMapPage = () => {
         },
       });
 
-      console.log("API 응답:", response);
+      console.log("유저디테일 응답:", response);
       return response.data;
     } catch (error) {
-      console.error("API 호출 중 오류 발생:", error);
+      console.error("유저디테일 중 오류 발생:", error);
       throw error;
     }
   };
@@ -80,6 +81,7 @@ const RoadMapPage = () => {
       console.log("직업추천 생성결과", response);
 
       if (response.data) {
+        setIsCompleteToCreate(true);
         setExistRoadmap(true);
       }
     } catch (error) {
@@ -104,10 +106,6 @@ const RoadMapPage = () => {
   useEffect(() => {
     if (step === 5) {
       if (step1Data && step2Data && step3Data && step4Data) {
-        console.table(step1Data);
-        console.table(step2Data);
-        console.table(step3Data);
-        console.table(step4Data);
         handleSubmit();
       } else {
         console.error("직업추천을 위한 데이터가 부족합니다.");
@@ -208,7 +206,11 @@ const RoadMapPage = () => {
             <div className="flex flex-col w-full items-center">
               <p className="w-full text-left">입력해주신 정보들로 로드맵을 생성하는 중이에요!</p>
               <div className="w-2/3 aspect-square flex flex-col items-center justify-center gap-3  opacity-60">
-                {isCompleteToCreate ? <div></div> : <FaSpinner className="text-3xl animate-spin" />}
+                {isCompleteToCreate ? (
+                  <FaCheckCircle className="text-3xl animate-fade-in-up" />
+                ) : (
+                  <FaSpinner className="text-3xl animate-spin" />
+                )}
                 <div>{isCompleteToCreate ? "기업 추천 생성 완료!" : "기업 추천 생성 중..."}</div>
               </div>
             </div>

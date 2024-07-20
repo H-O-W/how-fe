@@ -7,8 +7,8 @@ import { motion } from "framer-motion";
 import { useRecoilState } from "recoil";
 import roadmapState from "./Store/roadmapState";
 import Footer from "./Components/Footer";
-import image1 from "../Images/road.jpg";
-import image2 from "../Images/recommend.jpg";
+import image1 from "../Images/recommend.jpg";
+import image2 from "../Images/road.jpg";
 import image3 from "../Images/news.jpg";
 import { MessageCircle, Users, BookOpen } from "lucide-react";
 
@@ -72,8 +72,8 @@ export default function Home() {
             {[
               { title: "취업 로드맵", desc: "장애인 대상으로 AI 기반 취업 로드맵을 제공합니다." },
               {
-                title: "로드맵 진행상황 추적",
-                desc: "생성된 로드맵을 진행하면서 진행상황을 추적합니다.",
+                title: "취업 커뮤니티",
+                desc: "취업에 관한 정보를 얻을 수 있는 커뮤니티를 운영합니다.",
               },
               { title: "취업 관련 뉴스", desc: "취업 관련 뉴스를 놓치지 않고 읽어볼 수 있습니다." },
             ].map((item, index) => (

@@ -56,7 +56,7 @@ const Roadmap = () => {
 
   const CompanyCard = ({ company, index }) => (
     <motion.div
-      className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 text-white"
+      className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 text-white flex flex-col justify-between"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -85,18 +85,20 @@ const Roadmap = () => {
           </p>
         </div>
       </div>
-      <div className="bg-white bg-opacity-10 p-4">
-        <p className="flex items-center text-sm">
-          <MapPin className="mr-2" size={16} />
-          {company.data.compAddr}
-        </p>
-        <p className="flex items-center text-sm mt-2">
-          <Phone className="mr-2" size={16} />
-          {company.data.cntctNo}
-        </p>
-      </div>
-      <div className="bg-white bg-opacity-20 p-4">
-        <p className="text-sm font-semibold">모집기간: {company.data.termDate}</p>
+      <div>
+        <div className="bg-white bg-opacity-10 p-4">
+          <p className="flex items-center text-sm">
+            <MapPin className="mr-2" size={16} />
+            {company.data.compAddr}
+          </p>
+          <p className="flex items-center text-sm mt-2">
+            <Phone className="mr-2" size={16} />
+            {company.data.cntctNo}
+          </p>
+        </div>
+        <div className="bg-white bg-opacity-20 p-4">
+          <p className="text-sm font-semibold">모집기간: {company.data.termDate}</p>
+        </div>
       </div>
     </motion.div>
   );
