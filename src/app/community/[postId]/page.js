@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { FcLike } from "react-icons/fc";
 import { FaRegComment } from "react-icons/fa";
 import Comment from "@/app/Components/Comment";
@@ -115,6 +115,7 @@ const PostDetailViewPage = () => {
     }
   };
 
+  // 글 삭제
   const deletePost = async (id) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -128,6 +129,10 @@ const PostDetailViewPage = () => {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const onClickUpdate = () => {
+    navigate.push(`/community/write?id=${postId}`);
   };
 
   return (
@@ -186,8 +191,10 @@ const PostDetailViewPage = () => {
               </button>
               {openDropdown && (
                 <div className="absolute right-0 top-10 flex flex-col items-end shadow bg-white rounded text p-2">
-                  <button className="px-2">수정</button>
-                  <button onClick={() => deletePost(postId)} className="px-2">
+                  <button onClick={onClickUpdate} className="px-2 hover:bg-gray-100">
+                    수정
+                  </button>
+                  <button onClick={() => deletePost(postId)} className="px-2 hover:bg-gray-100">
                     삭제
                   </button>
                 </div>
