@@ -23,23 +23,23 @@ const Step1 = ({ onNext }) => {
   };
 
   const regionOptions = [
-    { value: "seoul", label: "서울" },
-    { value: "gyeonggi", label: "경기" },
-    { value: "incheon", label: "인천" },
-    { value: "busan", label: "부산" },
-    { value: "daegu", label: "대구" },
-    { value: "gwangju", label: "광주" },
-    { value: "daejeon", label: "대전" },
-    { value: "ulsan", label: "울산" },
-    { value: "sejong", label: "세종" },
-    { value: "gangwon", label: "강원" },
-    { value: "chungbuk", label: "충북" },
-    { value: "chungnam", label: "충남" },
-    { value: "jeonbuk", label: "전북" },
-    { value: "jeonnam", label: "전남" },
-    { value: "gyeongbuk", label: "경북" },
-    { value: "gyeongnam", label: "경남" },
-    { value: "jeju", label: "제주" },
+    { value: "서울", label: "서울" },
+    { value: "경기", label: "경기" },
+    { value: "인천", label: "인천" },
+    { value: "부산", label: "부산" },
+    { value: "대구", label: "대구" },
+    { value: "광주", label: "광주" },
+    { value: "대전", label: "대전" },
+    { value: "울산", label: "울산" },
+    { value: "세종", label: "세종" },
+    { value: "강원", label: "강원" },
+    { value: "충북", label: "충북" },
+    { value: "충남", label: "충남" },
+    { value: "전북", label: "전북" },
+    { value: "전남", label: "전남" },
+    { value: "경북", label: "경북" },
+    { value: "경남", label: "경남" },
+    { value: "제주", label: "제주" },
   ];
 
   const educationOptions = [
@@ -114,6 +114,7 @@ const Step1 = ({ onNext }) => {
           onChange={setSelectedJob}
           placeholder="선호 직무 분야를 선택하세요"
           styles={customStyles}
+          required
         />
       </div>
       <div className="mb-4">
@@ -128,6 +129,7 @@ const Step1 = ({ onNext }) => {
           onChange={setSelectedRegion}
           placeholder="선호 지역을 선택하세요"
           styles={customStyles}
+          required
         />
       </div>
 
@@ -143,9 +145,9 @@ const Step1 = ({ onNext }) => {
           onChange={setSelectedEducation}
           placeholder="최종 학력을 선택하세요"
           styles={customStyles}
+          required
         />
       </div>
-
       <button
         type="submit"
         className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:shadow-outline"

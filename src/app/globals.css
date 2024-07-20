@@ -68,11 +68,11 @@ CSS 작성 규칙
   padding: 3em;
   display: flex;
   flex-direction: column;
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard-Regular", "Arial";
 }
 
 .pretendard {
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard-Regular", "Arial";
 }
 
 /* Navbar Style */

@@ -71,6 +71,7 @@ const Step3 = ({ onNext, onPrev }) => {
           onChange={setLiftPower}
           placeholder="드는 힘을 선택하세요"
           styles={customStyles}
+          required
         />
       </div>
 
@@ -86,6 +87,7 @@ const Step3 = ({ onNext, onPrev }) => {
           onChange={setLstnTalk}
           placeholder="듣고 말하기 능력을 선택하세요"
           styles={customStyles}
+          required
         />
       </div>
 
@@ -101,6 +103,7 @@ const Step3 = ({ onNext, onPrev }) => {
           onChange={setStndWalk}
           placeholder="서거나 걷기 능력을 선택하세요"
           styles={customStyles}
+          required
         />
       </div>
 

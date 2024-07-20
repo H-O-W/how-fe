@@ -24,7 +24,7 @@ const RoadMapPage = () => {
   const [step2Data, setStep2Data] = useRecoilState(step2State);
   const [step3Data, setStep3Data] = useRecoilState(step3State);
   const [step4Data, setStep4Data] = useRecoilState(step4State);
-
+  const [isCompleteToCreate, setIsCompleteToCreate] = useState(false);
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
@@ -63,14 +63,38 @@ const RoadMapPage = () => {
       throw error;
     }
   };
+  const createRoadmap = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) alert("로그인이 필요한 기능입니다!");
+      const response = await axios.post(
+        "http://localhost:8080/recommendJobs/save",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
+      console.log("직업추천 생성결과", response);
+
+      if (response.data) {
+        setExistRoadmap(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // 사용 예시
   const handleSubmit = async () => {
     try {
       const result = await createMemberDetailForm(step1Data, step2Data, step3Data, step4Data);
       // 결과 처리
       // setExistRoadmap(true); // 로드맵이 생성되었다고 가정
-      console.log(result);
+      if (result) {
+        createRoadmap();
+      }
     } catch (error) {
       // 오류 처리
       console.error("로드맵 생성 중 오류:", error);
@@ -111,9 +135,7 @@ const RoadMapPage = () => {
 
   return (
     <section className="bg-white h-screen flex flex-col items-center pretendard pt-32">
-      {existRoadmap ? (
-        <div></div>
-      ) : (
+      {
         <div className="min-w-96 w-96">
           {/* 현재 단계 */}
           <h3 className="text-2xl font-semibold">나만을 위한 직업추천 생성 진행도</h3>
@@ -186,13 +208,13 @@ const RoadMapPage = () => {
             <div className="flex flex-col w-full items-center">
               <p className="w-full text-left">입력해주신 정보들로 로드맵을 생성하는 중이에요!</p>
               <div className="w-2/3 aspect-square flex flex-col items-center justify-center gap-3  opacity-60">
-                <FaSpinner className="text-3xl animate-spin" />
-                <div>직업추천 생성 중...</div>
+                {isCompleteToCreate ? <div></div> : <FaSpinner className="text-3xl animate-spin" />}
+                <div>{isCompleteToCreate ? "기업 추천 생성 완료!" : "기업 추천 생성 중..."}</div>
               </div>
             </div>
           )}
         </div>
-      )}
+      }
     </section>
   );
 };

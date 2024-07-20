@@ -53,6 +53,7 @@ const Step4 = ({ onNext, onPrev }) => {
             placeholder="연차"
             className="flex-grow border px-2 py-2 rounded"
             min="0"
+            required
           />
           <span className="flex items-center">년</span>
           <input
@@ -64,6 +65,7 @@ const Step4 = ({ onNext, onPrev }) => {
             className="flex-grow border px-2 py-2 rounded"
             min="0"
             max="11"
+            required
           />
           <span className="flex items-center">개월</span>
         </div>

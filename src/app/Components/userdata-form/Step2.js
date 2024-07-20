@@ -71,6 +71,7 @@ const Step2 = ({ onNext, onPrev }) => {
           placeholder="양손 사용 능력을 선택하세요"
           className="w-full"
           styles={customStyles}
+          required
         />
       </div>
 
@@ -87,6 +88,7 @@ const Step2 = ({ onNext, onPrev }) => {
           placeholder="시력 상태를 선택하세요"
           className="w-full"
           styles={customStyles}
+          required
         />
       </div>
 
@@ -103,6 +105,7 @@ const Step2 = ({ onNext, onPrev }) => {
           placeholder="손작업 능력을 선택하세요"
           className="w-full"
           styles={customStyles}
+          required
         />
       </div>
 
