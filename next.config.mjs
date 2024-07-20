@@ -10,6 +10,9 @@ const nextConfig = {
   },
   reactStrictMode: false,
   compress: true,
+  removeConsole: {
+    exclude: ["error", "warn"],
+  },
 };
 
 export default nextConfig;

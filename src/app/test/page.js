@@ -2,8 +2,7 @@
 
 import axios from "axios";
 
-const { useEffect } = require("react");
-
+import { useEffect } from "react";
 const a = () => {
   const apiSave = async () => {
     try {

@@ -26,7 +26,6 @@ const MyPage = () => {
       setUsername(response.data.name);
       setPhone(response.data.phoneNumber);
       setEmail(response.data.email);
-      console.log(response.data);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response.status === 404) {
         console.error("유저 정보 불러오기 실패:", error);
@@ -82,11 +81,11 @@ const MyPage = () => {
         </div>
 
         <div className="p-8 shadow-lg rounded-2xl bg-white w-1/2">
-          <div className="text-2xl font-bold mb-4">내가 만든 로드맵</div>
+          <div className="text-2xl font-bold mb-4">나만의 기업 추천 리스트</div>
           <ul>
-            <li className="mb-4 pb-4 border-b">로드맵1</li>
-            <li className="mb-4 pb-4 border-b">로드맵2</li>
-            <li className="mb-4 pb-4 border-b">로드맵3</li>
+            <li className="mb-4 pb-4 border-b">기업 1</li>
+            <li className="mb-4 pb-4 border-b">기업 2</li>
+            <li className="mb-4 pb-4 border-b">기업 3</li>
           </ul>
         </div>
       </div>
