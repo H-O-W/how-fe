@@ -1,12 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FcLike } from "react-icons/fc";
 import { FaRegComment } from "react-icons/fa";
 import Comment from "@/app/Components/Comment";
 import Image from "next/image";
 import axios from "axios";
 import DOMPurify from "dompurify";
+import NotFound from "@/app/not-found";
 
 const PostDetailViewPage = () => {
   const { postId } = useParams();
@@ -18,11 +19,14 @@ const PostDetailViewPage = () => {
   const [likes, setLikes] = useState(0);
   const [authorProfileThumbnail, setAuthorProfileThumbnail] = useState("");
   const [postLoading, setPostLoading] = useState(true);
-
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(false);
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState([]);
+
+  const navigate = useRouter();
 
   useEffect(() => {
     if (postId) {
@@ -43,7 +47,8 @@ const PostDetailViewPage = () => {
       console.log(response);
       setPostLoading(false);
     } catch (error) {
-      console.error(error);
+      console.error("글 조회실패", error);
+      setIsNotFound(true);
     }
   };
   const onDeleteContent = async (commentId) => {
@@ -54,28 +59,30 @@ const PostDetailViewPage = () => {
         },
       });
       getPostDetail(postId);
-
     } catch (error) {
       console.error("Failed to delete comment:", error);
     }
-  }
-  
+  };
+
   const onEditContent = async (commentId, editValue) => {
     try {
-      await axios.put(`http://localhost:8080/comment/update/${commentId}`, {
-        content:editValue
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      await axios.put(
+        `http://localhost:8080/comment/update/${commentId}`,
+        {
+          content: editValue,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
       getPostDetail(postId);
-
     } catch (error) {
       console.error("Failed to delete comment:", error);
     }
-  }
-  
+  };
+
   const toggleLike = () => {
     setLiked(!liked);
     setLikes(likes + (liked ? -1 : 1));
@@ -99,24 +106,46 @@ const PostDetailViewPage = () => {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
-      )
-      console.log('댓글 등록 결과', response);
+      );
+      console.log("댓글 등록 결과", response);
       setComment(""); // 댓글 입력란 비우기
       getPostDetail(postId);
-
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const deletePost = async (id) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.delete(`http://localhost:8080/post/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(response);
+      navigate.push("/");
+    } catch (e) {
+      console.error(e);
     }
   };
 
   return (
     <section className="container mx-auto p-4 max-w-5xl mt-24">
       {postLoading ? (
-        <div>Loading...</div>
+        <>
+          {isNotFound ? (
+            <div>
+              <NotFound />
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+        </>
       ) : (
         <div className="bg-white border border-gray-200 rounded-lg shadow-md">
           <div className="p-5">
-            <div className="flex items-center justify-between mb-2">
+            <div className="relative flex items-center justify-between mb-2">
               <div className="flex items-center">
                 {authorProfileThumbnail ? (
                   <Image
@@ -136,7 +165,10 @@ const PostDetailViewPage = () => {
                   </p>
                 </div>
               </div>
-              <button className="text-gray-400 hover:text-gray-500">
+              <button
+                onClick={() => setOpenDropdown(!openDropdown)}
+                className="text-gray-400 hover:text-gray-500"
+              >
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -152,6 +184,14 @@ const PostDetailViewPage = () => {
                   ></path>
                 </svg>
               </button>
+              {openDropdown && (
+                <div className="absolute right-0 top-10 flex flex-col items-end shadow bg-white rounded text p-2">
+                  <button className="px-2">수정</button>
+                  <button onClick={() => deletePost(postId)} className="px-2">
+                    삭제
+                  </button>
+                </div>
+              )}
             </div>
             <article
               className="w-full min-w-full mt-6 projectDescription flex flex-col items-start mb-6"
@@ -189,7 +229,12 @@ const PostDetailViewPage = () => {
             </div>
             <div className="space-y-4">
               {commentList.map((c) => (
-                <Comment key={c.id} comment={c} onDeleteContent={onDeleteContent} onEditContent={onEditContent}/>
+                <Comment
+                  key={c.id}
+                  comment={c}
+                  onDeleteContent={onDeleteContent}
+                  onEditContent={onEditContent}
+                />
               ))}
             </div>
           </div>
