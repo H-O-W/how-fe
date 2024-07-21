@@ -42,7 +42,7 @@ const MyPage = () => {
 
   useEffect(() => {
     getUser();
-  }, []); // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때 한 번만 실행되도록 함
+  }, [isLoggedIn]); // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때 한 번만 실행되도록 함
 
   return (
     <section className="bg-white h-screen flex justify-center items-center">

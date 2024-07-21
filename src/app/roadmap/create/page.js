@@ -17,6 +17,8 @@ import {
 import { FaSpinner } from "react-icons/fa";
 import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
+import userState from "@/app/Store/userState";
+import { useRouter } from "next/navigation";
 
 const RoadMapPage = () => {
   const [existRoadmap, setExistRoadmap] = useRecoilState(roadmapState);
@@ -28,6 +30,15 @@ const RoadMapPage = () => {
   const [isCompleteToCreate, setIsCompleteToCreate] = useState(false);
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userState);
+  const navigate = useRouter();
+
+  useEffect(() => {
+    if (isLoggedIn !== undefined && !isLoggedIn) {
+      alert("로그인이 필요한 기능입니다.");
+      navigate.push("/login");
+    }
+  }, [isLoggedIn]);
 
   const createMemberDetailForm = async (step1Data, step2Data, step3Data, step4Data) => {
     try {
@@ -68,6 +79,7 @@ const RoadMapPage = () => {
       throw error;
     }
   };
+
   const createRoadmap = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
