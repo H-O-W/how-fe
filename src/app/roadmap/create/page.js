@@ -121,9 +121,9 @@ const RoadMapPage = () => {
       }
     }
 
-    return () => {
-      setStep(1);
-    };
+    // return () => {
+    //   setStep(1);
+    // };
   }, [step]);
 
   // 예시 데이터

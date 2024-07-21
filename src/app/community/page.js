@@ -34,7 +34,7 @@ const CommunityBoard = () => {
         console.log("글 불러오기 결과", response);
       } catch (error) {
         if (error) {
-          refreshAccessToken();
+          // refreshAccessToken();
           console.error(error);
         }
       }
