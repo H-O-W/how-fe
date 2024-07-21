@@ -19,6 +19,7 @@ import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
 import userState from "@/app/Store/userState";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const RoadMapPage = () => {
   const [existRoadmap, setExistRoadmap] = useRecoilState(roadmapState);
@@ -237,6 +238,14 @@ const RoadMapPage = () => {
                   <FaSpinner className="text-3xl animate-spin" />
                 )}
                 <div>{isCompleteToCreate ? "기업 추천 생성 완료!" : "기업 추천 생성 중..."}</div>
+                {isCompleteToCreate && (
+                  <Link
+                    href={"/roadmap"}
+                    className="mt-8 px-4 py-1 text-lg bg-emerald-700 text-white rounded-md hover:bg-emerald-600 hover:scale-110 transition cursor-pointer shadow hover:shadow-md"
+                  >
+                    추천된 회사 보러가기
+                  </Link>
+                )}
               </div>
             </div>
           )}
