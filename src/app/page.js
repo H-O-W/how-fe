@@ -61,7 +61,6 @@ export default function Home() {
           </motion.div>
         </div>
       </motion.div>
-
       <motion.div className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" variants={stagger}>
         <div className="max-w-7xl mx-auto">
           <motion.h2 className="text-3xl font-extrabold text-gray-900 mb-8" variants={fadeInUp}>
