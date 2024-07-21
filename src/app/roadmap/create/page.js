@@ -71,7 +71,11 @@ const RoadMapPage = () => {
   const createRoadmap = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      if (!accessToken) alert("로그인이 필요한 기능입니다!");
+      if (!accessToken) {
+        alert("로그인이 필요한 기능입니다!");
+        return;
+      }
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/recommendJobs/save`,
         {},
