@@ -137,7 +137,11 @@ const Roadmap = () => {
             {myRoadmap.map((company, index) => (
               <CompanyCard key={index} company={company} index={index} />
             ))}
-            {myRoadmap.length === 0 && <div>조건에 맞는 기업이 없습니다. 다시 생성해주세요.</div>}
+            {myRoadmap.length === 0 && (
+              <div className="text-lg text-nowrap">
+                😢 조건에 맞는 기업이 없습니다. 다시 생성해주세요.
+              </div>
+            )}
           </div>
           <Link
             href={"/roadmap/create"}
