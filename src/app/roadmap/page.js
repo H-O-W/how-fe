@@ -130,73 +130,77 @@ const Roadmap = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             나의 맞춤 추천 기업{" "}
-            <Link
-              href={"/roadmap/create"}
-              className="absolute right-20 rounded-md px-2 py-1 text-lg bg-blue-700 hover:bg-blue-500 text-white"
-            >
-              다시 만들기
-            </Link>
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {myRoadmap.map((company, index) => (
               <CompanyCard key={index} company={company} index={index} />
             ))}
+            {myRoadmap.length === 0 && <div>조건에 맞는 기업이 없습니다. 다시 생성해주세요.</div>}
           </div>
+          <Link
+            href={"/roadmap/create"}
+            className="rounded-md px-3 py-2 text-lg bg-blue-700 hover:bg-blue-500 text-white"
+          >
+            기업 추천 다시 만들기
+          </Link>
         </section>
       ) : (
-        <motion.section
-          className="text-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="text-xl mb-6 text-gray-600">
-            아직 맞춤 추천이 없어요! 3분만에 맞춤 기업 추천받기
-          </p>
-          <Link
-            href="/roadmap/create"
-            className="inline-flex items-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-full hover:from-blue-600 hover:to-purple-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
+        <>
+          <motion.section
+            className="text-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            🚩 나만을 위한 기업추천 생성하기
-            <ArrowRight className="ml-2" />
-          </Link>
-        </motion.section>
-      )}
-      <motion.div
-        className="mt-20 text-center"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-          기업 추천은 이렇게 진행됩니다!
-        </h2>
-        <p className="text-gray-600 mb-8">
-          간단한 4단계 과정을 통해 맞춤형 기업 추천을 받아보세요.
-        </p>
-        <div className="flex flex-col  justify-center items-center space-y-12  ">
-          {steps.map((step, index) => (
-            <motion.div
-              key={index}
-              className="flex flex-col items-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 * index }}
+            <p className="text-xl mb-6 text-gray-600">
+              아직 맞춤 추천이 없어요! 3분만에 맞춤 기업 추천받기
+            </p>
+            <Link
+              href="/roadmap/create"
+              className="inline-flex items-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-full hover:from-blue-600 hover:to-purple-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
             >
-              <div className="mb-2 text-xl">{step.icon}</div>
-              <p className="text-lg text-gray-700 max-w-[300px]">{step.text}</p>
-              {index < steps.length - 1 && (
+              🚩 나만을 위한 기업추천 생성하기
+              <ArrowRight className="ml-2" />
+            </Link>
+          </motion.section>
+
+          <motion.div
+            className="mt-20 text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              기업 추천은 이렇게 진행됩니다!
+            </h2>
+            <p className="text-gray-600 mb-8">
+              간단한 4단계 과정을 통해 맞춤형 기업 추천을 받아보세요.
+            </p>
+            <div className="flex flex-col  justify-center items-center space-y-12  ">
+              {steps.map((step, index) => (
                 <motion.div
-                  className="hidden md:block h-0.5 w-12 bg-gray-300 mt-6 mx-2"
-                  initial={{ width: 0 }}
-                  animate={{ width: "2rem" }}
-                  transition={{ duration: 0.5, delay: 0.2 * index + 0.5 }}
-                />
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+                  key={index}
+                  className="flex flex-col items-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 * index }}
+                >
+                  <div className="mb-2 text-xl">{step.icon}</div>
+                  <p className="text-lg text-gray-700 max-w-[300px]">{step.text}</p>
+                  {index < steps.length - 1 && (
+                    <motion.div
+                      className="hidden md:block h-0.5 w-12 bg-gray-300 mt-6 mx-2"
+                      initial={{ width: 0 }}
+                      animate={{ width: "2rem" }}
+                      transition={{ duration: 0.5, delay: 0.2 * index + 0.5 }}
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </>
+      )}
     </div>
   );
 };
