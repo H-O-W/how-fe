@@ -27,7 +27,7 @@ const MyPage = () => {
       setPhone(response.data.phoneNumber);
       setEmail(response.data.email);
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response.status === 404) {
+      if (axios.isAxiosError(error)) {
         console.error("유저 정보 불러오기 실패:", error);
       }
     }
