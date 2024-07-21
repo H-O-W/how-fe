@@ -82,11 +82,7 @@ const MyPage = () => {
 
         <div className="p-8 shadow-lg rounded-2xl bg-white w-1/2">
           <div className="text-2xl font-bold mb-4">나만의 기업 추천 리스트</div>
-          <ul>
-            <li className="mb-4 pb-4 border-b">기업 1</li>
-            <li className="mb-4 pb-4 border-b">기업 2</li>
-            <li className="mb-4 pb-4 border-b">기업 3</li>
-          </ul>
+          <ul></ul>
         </div>
       </div>
     </section>

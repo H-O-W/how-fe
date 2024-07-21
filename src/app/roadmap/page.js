@@ -112,14 +112,14 @@ const Roadmap = () => {
   );
 
   return (
-    <div className="container min-h-screen pt-20 pb-12 mx-auto px-4 ">
+    <div className="container min-h-screen pt-24 pb-12 mx-auto px-4 ">
       <motion.h1
         className="text-4xl font-bold mb-8 text-center text-gray-800"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        나만을 위한 기업 추천
+        맞춤 채용 공고
       </motion.h1>
       {isExistRoadmap ? (
         <section>
