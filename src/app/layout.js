@@ -6,8 +6,8 @@ import RecoilWrapper from "./Components/RecoilWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "HOW 취업로드맵",
-  description: "공공데이터 활용 공모전 출품작",
+  title: "HOW 장애인 취업공고 추천",
+  description: "HOW 장애인 맞춤형 취업 공고를 추천합니다.",
 };
 
 export default function RootLayout({ children }) {
