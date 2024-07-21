@@ -228,7 +228,10 @@ const RoadMapPage = () => {
           {step === 4 && <Step4 onPrev={prevStep} onSubmit={handleSubmit} />}
           {step === 5 && (
             <div className="flex flex-col w-full items-center">
-              <p className="w-full text-left">입력해주신 정보들로 로드맵을 생성하는 중이에요!</p>
+              <p className="w-full text-left">
+                입력해주신 정보들로 로드맵을 생성하는 중이에요! 최대 30초 정도 소요됩니다. 잠시만
+                기다려주세요.
+              </p>
               <div className="w-2/3 aspect-square flex flex-col items-center justify-center gap-3  opacity-60">
                 {isCompleteToCreate ? (
                   <FaCheckCircle className="text-3xl animate-fade-in-up" />

@@ -10,8 +10,10 @@ const nextConfig = {
   },
   reactStrictMode: false,
   compress: true,
-  removeConsole: {
-    exclude: ["error", "warn"],
+  compiler: {
+    removeConsole: {
+      exclude: ["error", "warn"],
+    },
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,

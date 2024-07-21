@@ -17,10 +17,12 @@ import {
   Phone,
 } from "lucide-react";
 import { FileText, User, Award, CheckCircle } from "lucide-react";
+import { currentStepState } from "../Store/roadmapFormState";
 
 const Roadmap = () => {
   const [isExistRoadmap, setIsExistRoadmap] = useRecoilState(roadmapState);
   const [myRoadmap, setMyRoadmap] = useState([]);
+  const [step, setStep] = useRecoilState(currentStepState);
   const router = useRouter();
   const steps = [
     {
@@ -139,6 +141,7 @@ const Roadmap = () => {
           </div>
           <Link
             href={"/roadmap/create"}
+            onClick={() => setStep(1)}
             className="rounded-md px-3 py-2 text-lg bg-blue-700 hover:bg-blue-500 text-white"
           >
             기업 추천 다시 만들기
