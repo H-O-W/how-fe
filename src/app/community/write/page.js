@@ -48,7 +48,7 @@ const CoummunityWritePage = ({ searchParams }) => {
 
   const getPostDetail = async (postId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/board/${postId}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/board/${postId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -133,7 +133,6 @@ const CoummunityWritePage = ({ searchParams }) => {
   );
 
   // Method
-  const server = "http://localhost:8080";
   const createPost = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -142,7 +141,7 @@ const CoummunityWritePage = ({ searchParams }) => {
         content: postContent,
       };
 
-      const response = await axios.post(`${server}/post/create`, data, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/post/create`, data, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -159,7 +158,7 @@ const CoummunityWritePage = ({ searchParams }) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await axios.put(
-        `${server}/post/update/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/post/update/${id}`,
         {
           title: postTitle,
           content: postContent,

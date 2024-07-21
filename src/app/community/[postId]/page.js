@@ -37,7 +37,7 @@ const PostDetailViewPage = () => {
   // Method
   const getPostDetail = async (postId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/board/${postId}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/board/${postId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -53,11 +53,14 @@ const PostDetailViewPage = () => {
   };
   const onDeleteContent = async (commentId) => {
     try {
-      await axios.delete(`http://localhost:8080/comment/${post.boardId}/delete/${commentId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/comment/${post.boardId}/delete/${commentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
       getPostDetail(postId);
     } catch (error) {
       console.error("Failed to delete comment:", error);
@@ -67,7 +70,7 @@ const PostDetailViewPage = () => {
   const onEditContent = async (commentId, editValue) => {
     try {
       await axios.put(
-        `http://localhost:8080/comment/update/${commentId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comment/update/${commentId}`,
         {
           content: editValue,
         },
@@ -97,7 +100,7 @@ const PostDetailViewPage = () => {
   const postComment = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/comment/create/${post.boardId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comment/create/${post.boardId}`,
         {
           content: comment.trim(),
         },
