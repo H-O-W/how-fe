@@ -69,7 +69,10 @@ export default function Home() {
 
           <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" variants={stagger}>
             {[
-              { title: "취업 로드맵", desc: "장애인 대상으로 AI 기반 취업 로드맵을 제공합니다." },
+              {
+                title: "맞춤 취업 공고",
+                desc: "장애인 대상으로 AI 기반 맞춤 취업 공고를 제공합니다.",
+              },
               {
                 title: "취업 커뮤니티",
                 desc: "취업에 관한 정보를 얻을 수 있는 커뮤니티를 운영합니다.",
@@ -97,10 +100,10 @@ export default function Home() {
           </motion.div>
 
           <motion.div variants={fadeInUp} className="bg-white rounded-lg shadow-lg p-8 mb-16">
-            <h2 className="text-3xl font-bold mb-4">내 로드맵 보기</h2>
+            <h2 className="text-3xl font-bold mb-4">내 취업공고 보기</h2>
             {isHaveRoadmap ? (
               <>
-                <p className="text-xl mb-3">로드맵이 준비되었습니다. 확인해 보세요!</p>
+                <p className="text-xl mb-3">나만의 취업공고 준비되었습니다. 확인해 보세요!</p>
                 <Link
                   className="px-4 py-1 bg-emerald-950 text-white rounded-md text-xl shadow hover:shadow-lg hover:bg-emerald-700 hover:scale-110 transition"
                   href={"/roadmap"}
@@ -110,14 +113,14 @@ export default function Home() {
               </>
             ) : (
               <div className="text-xl">
-                <p className="mb-4">아직 로드맵이 만들어지지 않은 상태에요</p>
+                <p className="mb-4">아직 맞춤 취업공고가 만들어지지 않은 상태에요</p>
                 <MotionLink
                   href="/roadmap"
                   className="inline-block px-6 py-3 bg-emerald-500 text-white rounded-md hover:bg-green-600 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  로드맵 만들기
+                  나만의 취업 공고 추천받기
                 </MotionLink>
               </div>
             )}

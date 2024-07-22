@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="w-full md:w-1/4 mb-6 md:mb-0">
             <h3 className="text-xl font-bold mb-2">HOW</h3>
             <p className="text-sm">
-              AI 기술을 활용하여 장애인에게 맞춤형 취업 로드맵을 제공하는 혁신적인 서비스입니다.
+              AI 기술을 활용하여 장애인에게 맞춤형 취업 공고를 제공하는 혁신적인 서비스입니다.
             </p>
           </div>
 
@@ -26,7 +26,7 @@ const Footer = () => {
               </li>
               <li className="mb-1">
                 <Link href="/roadmap" className="hover:text-gray-300">
-                  로드맵 생성
+                  공고 추천 생성
                 </Link>
               </li>
               <li className="mb-1">
@@ -65,7 +65,7 @@ const Footer = () => {
 
         {/* 저작권 정보 */}
         <div className="border-t border-gray-700 mt-8 pt-4 text-sm text-center">
-          © {new Date().getFullYear()} AI 취업 로드맵 HOW. All rights reserved.
+          © {new Date().getFullYear()} AI 취업 공고 서비스 HOW. All rights reserved.
         </div>
       </div>
     </footer>
