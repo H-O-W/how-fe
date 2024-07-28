@@ -69,16 +69,81 @@ const LoginPage = () => {
     }
   }, []);
 
+  // 이메일 유효성 검사 함수
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // 이름 유효성 검사 함수
+  const isValidUsername = (username) => {
+    const usernameRegex = /^[a-zA-Z가-힣]{2,}$/;
+    return usernameRegex.test(username);
+  };
+
+  // 비밀번호 유효성 검사 함수
+  const isValidPassword = (password) => {
+    return password.length >= 8;
+  };
+
+  // 전화번호 유효성 검사 함수 추가
+  const isValidPhone = (phone) => {
+    const phoneRegex = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+    return phoneRegex.test(phone);
+  };
+
+  // 로그인 유효성 검사 함수
+  const validateLogin = () => {
+    if (!isValidEmail(email)) {
+      setError("올바른 이메일 형식이 아닙니다.");
+      return false;
+    }
+    if (!isValidPassword(password)) {
+      setError("비밀번호는 8자리 이상이어야 합니다.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
+  // 회원가입 유효성 검사 함수 수정
+  const validateRegister = () => {
+    if (!isValidUsername(username)) {
+      setError("이름은 2글자 이상이어야 하며, 특수문자를 포함할 수 없습니다.");
+      return false;
+    }
+    if (!isValidEmail(email)) {
+      setError("올바른 이메일 형식이 아닙니다.");
+      return false;
+    }
+    if (!isValidPhone(phone)) {
+      setError("올바른 전화번호 형식이 아닙니다. '-' 없이 숫자만 입력해주세요.");
+      return false;
+    }
+    if (!isValidPassword(password)) {
+      setError("비밀번호는 8자리 이상이어야 합니다.");
+      return false;
+    }
+    if (password !== passwordCheck) {
+      setError("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // 여기에 로그인 또는 회원가입 로직을 구현합니다.
+    setLoginLoading(true);
     if (isLogin) {
-      postLogin();
+      if (validateLogin()) postLogin();
+      else setLoginLoading(false);
     } else {
       // 회원가입
-      postRegister();
+      if (validateRegister()) postRegister();
+      else setLoginLoading(false);
     }
-    setLoginLoading(true);
   };
 
   const toggleAuthMode = () => {
