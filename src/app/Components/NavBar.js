@@ -22,14 +22,26 @@ const NavBar = () => {
         HOW
       </Link>
       <ul className="inline-flex gap-3">
-        <li onClick={() => navigate.push("/")}>소개</li>
-        <li onClick={() => navigate.push("/roadmap")}>직업추천</li>
-        <li onClick={() => navigate.push("/community")}>커뮤니티</li>
-        <li onClick={() => navigate.push("/faq")}>고객센터</li>
+        <li onClick={() => navigate.push("/")} aria-label="메인 페이지로 이동">
+          소개
+        </li>
+        <li onClick={() => navigate.push("/roadmap")} aria-label="직업추천 페이지로 이동">
+          직업추천
+        </li>
+        <li onClick={() => navigate.push("/community")} aria-label="커뮤니티 페이지로 이동">
+          커뮤니티
+        </li>
+        <li onClick={() => navigate.push("/faq")} aria-label="고객센터 페이지로 이동">
+          고객센터
+        </li>
         {isLoggedIn ? (
-          <li onClick={() => navigate.push("/mypage")}>마이페이지</li>
+          <li onClick={() => navigate.push("/mypage")} aria-label="마이페이지로 이동">
+            마이페이지
+          </li>
         ) : (
-          <li onClick={() => navigate.push("/login")}>로그인</li>
+          <li onClick={() => navigate.push("/login")} aria-label="로그인 페이지로 이동">
+            로그인
+          </li>
         )}
       </ul>
     </nav>

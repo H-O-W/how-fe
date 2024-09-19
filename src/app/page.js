@@ -43,10 +43,15 @@ export default function Home() {
           <motion.h1
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4"
             variants={fadeInUp}
+            aria-label="서비스 이름 HOW"
           >
             HOW
           </motion.h1>
-          <motion.p className="text-lg sm:text-xl md:text-2xl mb-8" variants={fadeInUp}>
+          <motion.p
+            className="text-lg sm:text-xl md:text-2xl mb-8"
+            variants={fadeInUp}
+            aria-label="서비스 소개"
+          >
             장애인을 위한 나만의 기업 추천, 하우와 함께
           </motion.p>
           <motion.div variants={fadeInUp}>
@@ -55,6 +60,7 @@ export default function Home() {
               className="inline-block px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-500 hover:bg-blue-700 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-label="나만의 취업공고 추천받기 버튼"
             >
               지금 시작하기
             </MotionLink>
@@ -63,7 +69,11 @@ export default function Home() {
       </motion.div>
       <motion.div className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" variants={stagger}>
         <div className="max-w-7xl mx-auto">
-          <motion.h2 className="text-3xl font-extrabold text-gray-900 mb-8" variants={fadeInUp}>
+          <motion.h2
+            className="text-3xl font-extrabold text-gray-900 mb-8"
+            variants={fadeInUp}
+            aria-label="각 세부 서비스 소개"
+          >
             HOW 서비스 소개
           </motion.h2>
 
