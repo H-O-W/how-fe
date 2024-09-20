@@ -10,27 +10,6 @@ const CustomerService = () => {
   const [activeTab, setActiveTab] = useState("inquiries");
   const pathname = usePathname();
 
-  const tabContent = {
-    inquiries: {
-      title: "고객문의",
-      description: "문의사항을 남겨주시면 빠른 시일 내에 답변 드리겠습니다.",
-      icon: "💬",
-      content: "여기에 고객문의 폼이나 FAQ 목록이 들어갈 수 있습니다.",
-    },
-    learningData: {
-      title: "학습데이터",
-      description: "HOW 서비스의 학습 데이터를 확인하세요.",
-      icon: "📚",
-      content: "여기에 학습 데이터 목록이나 관련 정보가 표시됩니다.",
-    },
-    announcements: {
-      title: "공지사항",
-      description: "HOW 서비스의 최신 소식을 확인하세요.",
-      icon: "🔔",
-      content: "여기에 공지사항 목록이 표시됩니다.",
-    },
-  };
-
   return (
     <div className="container mx-auto p-4 flex gap-2 pt-24 mt-16">
       <div className="w-48 text-xl flex flex-col gap-6">
