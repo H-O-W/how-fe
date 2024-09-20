@@ -41,7 +41,7 @@ const Footer = () => {
           <div className="w-full md:w-1/4 mb-6 md:mb-0">
             <h4 className="text-lg font-semibold mb-2">연락처 📞</h4>
             <p className="text-sm mb-1">이메일: primitive@gmail.com</p>
-            <p className="text-sm mb-1">주소: 서울특별시 강남구</p>
+            <p className="text-sm mb-1"></p>
           </div>
 
           {/* 소셜 미디어 링크 */}
